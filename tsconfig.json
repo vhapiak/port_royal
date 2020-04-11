@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "outDir": "public/js/",
+        "typeRoots": [
+            "./node_modules/phaser/types"
+        ],
+        "types": [
+            "phaser"
+        ]
+    },
+    "include": ["src/**/*"]
+}
