@@ -4,6 +4,8 @@ import { ShipColor } from './ShipColor';
 
 export class ShipCard extends Card {
 
+    static readonly IMMORTAL_STRENGTH: number = NaN;
+
     color: ShipColor;
     income: number;
     strength: number;
