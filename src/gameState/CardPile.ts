@@ -4,6 +4,11 @@ export class CardPile {
     drawPile: Card[];
     discardPile: Card[];
 
+    constructor(cards: Card[]) {
+        this.drawPile = [];
+        this.discardPile = cards;
+    }
+
     /**
      * @return null if there are no cards in a pile
      */

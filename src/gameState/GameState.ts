@@ -11,4 +11,13 @@ export class GameState {
     harbor: Harbor;
     players: Player[];
     activePlayer: Player;
+
+    constructor(cardPile: CardPile, players: Player[]) {
+        this.phase = GamePhase.Discovering;
+        this.cardPile = cardPile;
+        this.drawnCard = null;
+        this.harbor = new Harbor();
+        this.players = players; // @todo validate players number
+        this.activePlayer = players[0]; 
+    }
 }
