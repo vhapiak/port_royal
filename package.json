@@ -4,7 +4,7 @@
   "description": "Board card game",
   "main": "Main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "python -m http.server --directory public/ 8080"
   },
   "author": "Viktor Hapiak",
   "license": "ISC",
