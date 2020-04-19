@@ -1,10 +1,12 @@
 import { ResultCode } from "./ResultCode";
+import { GameEvent } from "../gameEvents/GameEvent";
 
 export class ExecutionResult {
-    result: ResultCode;
-    events: void;
+    code: ResultCode;
+    events: GameEvent[];
 
-    constructor(result: ResultCode) {
-        this.result = result;
+    constructor(code: ResultCode, events: GameEvent[] = []) {
+        this.code = code;
+        this.events = events;
     }
 }

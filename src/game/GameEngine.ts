@@ -7,23 +7,28 @@ import { PlayerActionValidator } from "./actionProcessors/PlayerActionValidator"
 import { GameStateManager } from "./actionProcessors/GameStateManager";
 import { PlayerActionExecutor } from "./actionProcessors/PlayerActionExecutor";
 
-class GameEngine {
+export class GameEngine {
 
-    private state: GameState;
+    state: GameState;
 
-    validateAction(playerIdx: number, action: PlayerAction): ResultCode {
-        let player = this.getPlayerObject(playerIdx);
+    constructor(state: GameState) {
+        this.state = state;
+    }
+
+    validateAction(player: Player, action: PlayerAction): ResultCode {
         return this.validate(player, action);
     }
 
-    executeAction(playerIdx: number, action: PlayerAction): ExecutionResult {
-        let player = this.getPlayerObject(playerIdx);
-        return this.execute(player, action);
-    }
+    executeAction(player: Player, action: PlayerAction): ExecutionResult {
+        let validationResult = this.validate(player, action);
+        if (validationResult != ResultCode.Ok) {
+            return new ExecutionResult(validationResult);
+        }
 
-    private getPlayerObject(playerIdx: number): Player {
-        // @todo validate player index
-        return this.state.players[playerIdx];
+        let gameStateManager = new GameStateManager(this.state);
+        let executor = new PlayerActionExecutor(gameStateManager, player);
+        action.apply(executor);
+        return new ExecutionResult(executor.result, gameStateManager.events);
     }
 
     private validate(player: Player, action: PlayerAction): ResultCode {
@@ -34,18 +39,6 @@ class GameEngine {
         let validator = new PlayerActionValidator(this.state, player);
         action.apply(validator);
         return validator.result;
-    }
-
-    private execute(player: Player, action: PlayerAction): ExecutionResult {
-        let validationResult = this.validate(player, action);
-        if (validationResult != ResultCode.Ok) {
-            return new ExecutionResult(validationResult);
-        }
-
-        let gameStateManager = new GameStateManager(this.state);
-        let executor = new PlayerActionExecutor(gameStateManager, player);
-        action.apply(executor);
-        return new ExecutionResult(executor.result);
     }
 
 }

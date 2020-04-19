@@ -28,6 +28,7 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         let manager = this.gameStateManager;
 
         let drawnCard = manager.drawCard();
+        // @todo check that card isn't null
         
         let shipStrengthChecker = new ShipStrengthChecker(this.sourcePlayer);
         drawnCard.apply(shipStrengthChecker);
