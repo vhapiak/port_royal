@@ -1,10 +1,23 @@
 /// <reference types="phaser" />
 
 import { Config } from "./ViewConfig";
+import { GameModel } from "../GameModel";
+import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
+import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
 
-export class HarborView {
+export class HarborView extends GameEventVisitor {
 
-    constructor(scene: Phaser.Scene) {
+    scene: Phaser.Scene;
+    gameModel: GameModel;
+    cards: Phaser.GameObjects.Image[];
+
+    constructor(scene: Phaser.Scene, gameModel: GameModel) {
+        super();
+        
+        this.scene = scene;
+        this.gameModel = gameModel;
+        this.cards = [];
+        
         let title = scene.add.text(
             Config.mainLayer.harborLayer.x,
             Config.mainLayer.titleRow.y,
@@ -12,16 +25,19 @@ export class HarborView {
             Config.titleFont);
         title.setOrigin(0.5, 0.5);
 
-        const tmp = [
-            'sloop_c1_s1',
-            'pirate_c5_p1_s2',
-            'sloop_c1_s1',
-            'pirate_c5_p1_s2',
-            'trader_c3_p1_brig',
-            'expedition_c2_p4_ss',
-            'pirate_c5_p1_s2',
-            'trader_c3_p1_brig',
-        ];
+        gameModel.subscribe(this);
+        this.updateState();
+    }
+
+    visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent) {
+        this.updateState();
+    }
+
+    private updateState(): void {
+        this.cards.forEach((card) => {
+            card.destroy(true);
+        });
+        this.cards = [];
 
         const harborConfig = Config.mainLayer.harborLayer;
         const cardSize = Config.cardSize;
@@ -30,13 +46,17 @@ export class HarborView {
         const firstCollumnX = harborConfig.x - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
         const firstCollumnY = Config.mainLayer.deckRow.y;
 
-        for(let i = 0; i < tmp.length; ++i) {
+        const harborCards = this.gameModel.gameEngine.state.harbor.cards; 
+        for(let i = 0; i < harborCards.length; ++i) {
             const row = Math.floor(i / harborConfig.cardsInRow);
             const col = i % harborConfig.cardsInRow;
-            let card = scene.add.image(
+
+            let card = this.scene.add.image(
                 firstCollumnX + col * cardWidthWithOffset, 
                 firstCollumnY + row * cardHeightWithOffset, 
-                tmp[i]);
+                harborCards[i].imagePath);
+
+            this.cards.push(card);
         }
     }
 
