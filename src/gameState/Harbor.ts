@@ -12,4 +12,8 @@ export class Harbor {
             this.cards.push(card);
         }
     }
+
+    clear(): void {
+        this.cards = [];
+    }
 }

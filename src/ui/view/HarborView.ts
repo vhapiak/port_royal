@@ -4,6 +4,7 @@ import { Config } from "./ViewConfig";
 import { GameModel } from "../GameModel";
 import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
 import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
+import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
 
 export class HarborView extends GameEventVisitor {
 
@@ -30,6 +31,10 @@ export class HarborView extends GameEventVisitor {
     }
 
     visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent) {
+        this.updateState();
+    }
+
+    visitHarborDiscardedEvent(event: HarborDiscardedEvent) {
         this.updateState();
     }
 

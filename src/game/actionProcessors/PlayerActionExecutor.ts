@@ -6,6 +6,7 @@ import { GameStateManager } from "./GameStateManager";
 import { ShipStrengthChecker } from "./ShipStrengthChecker";
 import { DiscardShipAction } from "../../playerActions/DiscardShipAction";
 import { PutShipIntoHarborAction } from "../../playerActions/PutShipIntoHarborAction";
+import { SameShipsInHarborChecker } from "./SameShipsInHarborChecker";
 
 export class PlayerActionExecutor extends PlayerActionVisitor {
 
@@ -45,9 +46,7 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         if (shipStrengthChecker.isCardDiscardable) {
             manager.waitDiscardDecision();
         } else {
-            manager.putDrawnCardIntoHarbor();
-            manager.continueDiscovering();
-            // @todo check identical ship colors in harbor 
+            this.putDrawnCardIntoHarbor();
         }
         return ResultCode.Ok;
     }
@@ -61,10 +60,23 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
 
     private executePutShipIntoHarborAction() {
         let manager = this.gameStateManager;
-        manager.putDrawnCardIntoHarbor();
-        manager.continueDiscovering();
-        // @todo check identical ship colors in harbor 
+        this.putDrawnCardIntoHarbor();
         return ResultCode.Ok;
+    }
+
+    private putDrawnCardIntoHarbor() {
+        let manager = this.gameStateManager;
+        manager.putDrawnCardIntoHarbor();
+
+        let sameShipsChecker = new SameShipsInHarborChecker(manager.gameState.harbor.cards);
+        if (sameShipsChecker.hasSameShips) {
+            manager.discardHarbor();
+            manager.continueDiscovering(); 
+            // @todo initiate end of turn
+        } else {
+            manager.continueDiscovering();
+        }
+
     }
 
 }

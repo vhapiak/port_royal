@@ -5,6 +5,7 @@ import { GameEvent } from "../../gameEvents/GameEvent";
 import { CardDrawnEvent } from "../../gameEvents/CardDrawnEvent";
 import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
+import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
 
 export class GameStateManager {
 
@@ -48,6 +49,14 @@ export class GameStateManager {
             this.gameState.phase = GamePhase.Discovering;
             this.events.push(new GamePhaseChangedEvent(this.gameState.phase));
         }
+    }
+
+    discardHarbor(): void {
+        this.gameState.harbor.cards.forEach(card => {
+            this.gameState.cardPile.discardCard(card);
+        });
+        this.gameState.harbor.clear();
+        this.events.push(new HarborDiscardedEvent());
     }
 
 } 
