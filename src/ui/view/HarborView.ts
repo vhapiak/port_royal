@@ -44,7 +44,7 @@ export class HarborView extends GameEventVisitor {
         const cardWidthWithOffset = cardSize.width + harborConfig.cardsOffset.width;
         const cardHeightWithOffset = cardSize.height + harborConfig.cardsOffset.height;
         const firstCollumnX = harborConfig.x - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
-        const firstCollumnY = Config.mainLayer.deckRow.y;
+        const firstCollumnY = Config.mainLayer.verticalLayer.deckRow.y;
 
         const harborCards = this.gameModel.gameEngine.state.harbor.cards; 
         for(let i = 0; i < harborCards.length; ++i) {

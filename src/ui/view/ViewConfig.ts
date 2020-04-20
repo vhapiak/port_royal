@@ -12,9 +12,24 @@ export const Config = {
         color: '#ffffff',
         fontStyle: 'bold italic'
     },
+    buttonFont: {
+        fontFamily: 'Bookman',
+        fontSize: 27,
+        color: '#000000',
+        fontStyle: 'bold italic'
+    },
     mainLayer: {
         verticalLayer: {
-            x: 35 + cardSize.width / 2
+            x: 35 + cardSize.width / 2,
+            deckRow: {
+                y: 381 + cardSize.height / 2
+            },
+            firstButtonRow: {
+                y: 761
+            },
+            secondButtonRow: {
+                y: 828
+            }
         },
         harborLayer: {
             x: 1097,
@@ -26,9 +41,6 @@ export const Config = {
         },
         titleRow: {
             y: 359
-        },
-        deckRow: {
-            y: 381 + cardSize.height / 2
         }
     }
 };

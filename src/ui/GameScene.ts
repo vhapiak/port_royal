@@ -13,6 +13,9 @@ import { CrewAbility } from "../cards/CrewAbility";
 import { GameState } from "../gameState/GameState";
 import { CardPile } from "../gameState/CardPile";
 import { GameEngine } from "../game/GameEngine";
+import { DrawnCardView } from "./view/DrawnCardView";
+import { StopDrawingButton } from "./view/StopDrawingButton";
+import { DiscardShipButtons } from "./view/DiscardShipButtons";
 
 export class GameScene extends Phaser.Scene {
 
@@ -24,15 +27,15 @@ export class GameScene extends Phaser.Scene {
             active: true,
         });
 
+        let pirate =  new PiratCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
         let players = [
-            new Player('Jack'),
-            new Player('Will'),
-            new Player('Davy')
+            new Player('Jack', [], [pirate]),
+            new Player('Will', [], []),
+            new Player('Davy', [], [])
         ];
 
         let cardPile = new CardPile([
             new ShipCard(0, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
-            new PiratCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
             new ShipCard(2, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
             new PiratCard(3, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
             new TraderCard(4, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
@@ -49,8 +52,10 @@ export class GameScene extends Phaser.Scene {
 
     preload(): void {
         this.load.image('main_bg', 'data/main_bg.png');
-        this.load.image('shirt', 'data/cards/shirt.png');
+        this.load.image('blue_button', 'data/blue_button.png');
+        this.load.image('brown_button', 'data/brown_button.png');
 
+        this.load.image('shirt', 'data/cards/shirt.png');
         this.load.image('expedition_c2_p4_ss', 'data/cards/expedition_c2_p4_ss.png');
         this.load.image('pirate_c5_p1_s2', 'data/cards/pirate_c5_p1_s2.png');
         this.load.image('sloop_c1_s1', 'data/cards/sloop_c1_s1.png');
@@ -63,5 +68,8 @@ export class GameScene extends Phaser.Scene {
 
         let drawPile = new DrawPileView(this, this.gameModel);
         let habor = new HarborView(this, this.gameModel);
+        let drawCard = new DrawnCardView(this, this.gameModel);
+        let stopDrawing = new StopDrawingButton(this, this.gameModel);
+        let discardShip = new DiscardShipButtons(this, this.gameModel);
     }
 }

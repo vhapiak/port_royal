@@ -22,7 +22,7 @@ export class DrawPileView {
 
         this.drawPile = scene.add.image(
             Config.mainLayer.verticalLayer.x,
-            Config.mainLayer.deckRow.y,
+            Config.mainLayer.verticalLayer.deckRow.y,
             'shirt');
 
         this.drawPile.setInteractive().on('pointerup', DrawPileView.prototype.onClick, this);
