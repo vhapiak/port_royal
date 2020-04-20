@@ -6,9 +6,9 @@ export class Player {
     coins: Card[];
     persons: PersonCard[];
 
-    constructor(name: string) {
+    constructor(name: string, coins: Card[], persons: PersonCard[]) {
         this.name = name;
-        this.coins = [];
-        this.persons = [];
+        this.coins = coins;
+        this.persons = persons;
     }
 }

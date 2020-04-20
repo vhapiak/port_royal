@@ -23,4 +23,10 @@ export class CardPile {
         }
         return this.drawPile.pop();
     }
+
+    discardCard(card: Card) {
+        if (card) {
+            this.discardPile.push(card);
+        }
+    }
 }

@@ -8,7 +8,7 @@ export class Harbor {
     }
 
     addCard(card: Card): void {
-        if (card !== null) {
+        if (card) {
             this.cards.push(card);
         }
     }
