@@ -7,6 +7,7 @@ import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
 import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
 import { Player } from "../../gameState/Player";
+import { PersonCard } from "../../cards/PersonCard";
 
 export class GameStateManager {
 
@@ -60,8 +61,10 @@ export class GameStateManager {
         this.events.push(new HarborDiscardedEvent());
     }
 
-    startHiring(): void {
+    startHiring(possibleHires: number): void {
         this.gameState.phase = GamePhase.Hiring;
+        this.gameState.possibleHires = possibleHires;
+        // @todo generate event about possible hires
         this.events.push(new GamePhaseChangedEvent(this.gameState.phase));
     }
 
@@ -69,7 +72,7 @@ export class GameStateManager {
         for (let i = 0; i < income; ++i) {
             const coin = this.gameState.cardPile.popCard();
             // @todo check for null
-            this.gameState.activePlayer.addCoin(coin);
+            player.addCoin(coin);
         }
         // @todo generate event
     }
@@ -87,6 +90,44 @@ export class GameStateManager {
     startDiscovering(): void {
         this.gameState.phase = GamePhase.Discovering;
         this.events.push(new GamePhaseChangedEvent(this.gameState.phase));
+    }
+
+    discardHarborCard(card: Card): void {
+        this.gameState.harbor.removeCard(card);
+        this.gameState.cardPile.discardCard(card);
+        // @todo generate event
+    }
+
+    spendCoins(player: Player, coins: number): void {
+        for (let i = 0; i < coins; ++i) {
+            const coin = player.removeCoin();
+            this.gameState.cardPile.discardCard(coin);
+        }
+        // @todo generate event
+    }
+
+    payCoins(source: Player, target: Player, coins: number): void {
+        for (let i = 0; i < coins; ++i) {
+            const coin = source.removeCoin();
+            target.addCoin(coin);
+        }
+        // @todo generate event
+    }
+
+    hirePerson(player: Player, person: PersonCard): void {
+        this.gameState.harbor.removeCard(person);
+        player.addPerson(person);
+        // @todo generate event
+    }
+
+    resetNumberOfHires() {
+        this.gameState.numberOfHires = 0;
+        // @todo generate event
+    }
+
+    increaseNumberOfHires(): void {
+        this.gameState.numberOfHires++;
+        // @todo generate event
     }
 
 } 

@@ -15,4 +15,13 @@ export class Player {
     addCoin(coin: Card): void {
         this.coins.push(coin);
     }
+
+    removeCoin(): Card {
+        // @todo assert coins not empty
+        return this.coins.pop();
+    }
+
+    addPerson(person: PersonCard): void {
+        this.persons.push(person);
+    }
 }

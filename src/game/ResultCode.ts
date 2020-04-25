@@ -3,5 +3,8 @@ export enum ResultCode {
     Ok,
     UnknownError,
     WrongPhase,
-    NotActivePlayer
+    NotActivePlayer,
+    WrongCardType,
+    NotEnoughCoins,
+    ExceedNumberOfHires,
 }

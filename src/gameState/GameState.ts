@@ -11,6 +11,8 @@ export class GameState {
     harbor: Harbor;
     players: Player[];
 
+    possibleHires: number;
+    numberOfHires: number;
     turnPlayer: Player;
     activePlayer: Player;
 

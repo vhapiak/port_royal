@@ -13,12 +13,16 @@ import { CaptainBonusCalculator } from "./CaptainBonusCalculator";
 import { RogueCard } from "../../cards/persons/RogueCard";
 import { RogueBonusCalculator } from "./RogueBonusCalculator";
 import { StopHiringAction } from "../../playerActions/StopHiringAction";
+import { HireCardAction } from "../../playerActions/HireCardAction";
+import { HireCardActionExecutor } from "./HireCardActionExecutor";
+import { DifferentShipsCalculator } from "./DifferentShipsCalculator";
+import { HireBonusCalculator } from "./HireBonusCalculator";
 
 export class PlayerActionExecutor extends PlayerActionVisitor {
 
     private gameStateManager: GameStateManager;
     private sourcePlayer: Player;
-    
+
     result: ResultCode;
 
     constructor(gameStateManager: GameStateManager, sourcePlayer: Player) {
@@ -49,12 +53,16 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         this.result = this.executeStopHiringAction();
     }
 
+    visitHireCardAction(action: HireCardAction): void {
+        this.result = this.executeHireCardAction(action);
+    }
+
     private executeDrawCardAction(action: DrawCardAction): ResultCode {
         let manager = this.gameStateManager;
 
         let drawnCard = manager.drawCard();
         // @todo check that card isn't null
-        
+
         let shipStrengthChecker = new ShipStrengthChecker(this.sourcePlayer);
         drawnCard.apply(shipStrengthChecker);
         if (shipStrengthChecker.isCardDiscardable) {
@@ -73,7 +81,6 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
     }
 
     private executePutShipIntoHarborAction(): ResultCode {
-        let manager = this.gameStateManager;
         this.putDrawnCardIntoHarbor();
         return ResultCode.Ok;
     }
@@ -96,6 +103,38 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         return ResultCode.Ok;
     }
 
+    private executeHireCardAction(action: HireCardAction): ResultCode {
+        const gameState = this.gameStateManager.gameState;
+        const activePlayer = gameState.activePlayer;
+        const turnPlayer = gameState.turnPlayer;
+
+        const possibleHires = turnPlayer == activePlayer ? gameState.possibleHires : 1;
+        const hiresBonus = new HireBonusCalculator(activePlayer.persons);
+
+        if (gameState.numberOfHires >= possibleHires + hiresBonus.bonus) {
+            return ResultCode.ExceedNumberOfHires;
+        }
+
+        let executor = new HireCardActionExecutor(this.gameStateManager);
+        action.card.apply(executor);
+
+        if (executor.result !== ResultCode.Ok) {
+            return executor.result;
+        }
+
+        if (turnPlayer !== activePlayer) {
+            if (activePlayer.coins.length === 0) {
+                return ResultCode.NotEnoughCoins;
+            }
+            const hireFee = 1;
+            this.gameStateManager.payCoins(activePlayer, turnPlayer, hireFee);
+        }
+        this.gameStateManager.increaseNumberOfHires();
+        // @todo pass turn if player has no actions
+
+        return ResultCode.Ok;
+    }
+
     private putDrawnCardIntoHarbor() {
         let manager = this.gameStateManager;
         manager.putDrawnCardIntoHarbor();
@@ -110,13 +149,16 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
     }
 
     private startHiring(): void {
-        this.gameStateManager.startHiring();
-        // @todo calculate turn player hiring bonus
+        let manager = this.gameStateManager;
+        const differentShipsCalculator = new DifferentShipsCalculator(manager.gameState.harbor.cards);
+        const possibleHires = this.calcPossibleHires(differentShipsCalculator.number);
+        manager.startHiring(possibleHires);
         this.startActivePlayerHiring();
     }
 
     private startActivePlayerHiring(): void {
         this.calcStartHiringPlayerBonuses();
+        this.gameStateManager.resetNumberOfHires();
         // @todo pass turn if player has no actions
     }
 
@@ -148,6 +190,16 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         // @todo assert currentPlayerIdx !== -1
         const nextIdx = (currentPlayerIdx + 1) % gameState.players.length;
         return gameState.players[nextIdx];
+    }
+
+    private calcPossibleHires(differentShips: number): number {
+        if (differentShips >= 5) {
+            return 3;
+        }
+        if (differentShips == 4) {
+            return 2;
+        }
+        return 1;
     }
 
 
