@@ -6,6 +6,8 @@ import { GameState } from "../../gameState/GameState";
 import { GamePhase } from "../../gameState/GamePhase";
 import { DiscardShipAction } from "../../playerActions/DiscardShipAction";
 import { PutShipIntoHarborAction } from "../../playerActions/PutShipIntoHarborAction";
+import { StopDiscoveringAction } from "../../playerActions/StopDiscoveringAction";
+import { StopHiringAction } from "../../playerActions/StopHiringAction";
 
 export class PlayerActionValidator extends PlayerActionVisitor {
 
@@ -23,26 +25,41 @@ export class PlayerActionValidator extends PlayerActionVisitor {
     }
 
     visitDrawCardAction(action: DrawCardAction): void {
-        this.result = this.checkDrawCardAction(action);
+        this.result = this.checkDrawCardPhase();
+    }
+
+    visitStopDiscoveringAction(action: StopDiscoveringAction): void {
+        this.result = this.checkDrawCardPhase();
     }
 
     visitDiscardShipAction(action: DiscardShipAction): void {
-        this.result = this.checkDiscardAction();
+        this.result = this.checkDiscardPhase();
     }
 
     visitPutShipIntoHarborAction(action: PutShipIntoHarborAction): void {
-        this.result = this.checkDiscardAction();
+        this.result = this.checkDiscardPhase();
     }
 
-    private checkDrawCardAction(action: DrawCardAction): ResultCode {
+    visitStopHiringAction(action: StopHiringAction): void {
+        this.result = this.checkHiringPhase();
+    }
+
+    private checkDrawCardPhase(): ResultCode {
         if (this.gameState.phase !== GamePhase.Discovering) {
             return ResultCode.WrongPhase;
         }
         return ResultCode.Ok;
     }
 
-    private checkDiscardAction(): ResultCode {
+    private checkDiscardPhase(): ResultCode {
         if (this.gameState.phase !== GamePhase.DiscardingShip) {
+            return ResultCode.WrongPhase;
+        }
+        return ResultCode.Ok;
+    }
+
+    private checkHiringPhase(): ResultCode {
+        if (this.gameState.phase !== GamePhase.Hiring) {
             return ResultCode.WrongPhase;
         }
         return ResultCode.Ok;

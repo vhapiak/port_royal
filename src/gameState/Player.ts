@@ -11,4 +11,8 @@ export class Player {
         this.coins = coins;
         this.persons = persons;
     }
+
+    addCoin(coin: Card): void {
+        this.coins.push(coin);
+    }
 }

@@ -7,6 +7,12 @@ import { ShipStrengthChecker } from "./ShipStrengthChecker";
 import { DiscardShipAction } from "../../playerActions/DiscardShipAction";
 import { PutShipIntoHarborAction } from "../../playerActions/PutShipIntoHarborAction";
 import { SameShipsInHarborChecker } from "./SameShipsInHarborChecker";
+import { StopDiscoveringAction } from "../../playerActions/StopDiscoveringAction";
+import { CaptainCard } from "../../cards/persons/CaptainCard";
+import { CaptainBonusCalculator } from "./CaptainBonusCalculator";
+import { RogueCard } from "../../cards/persons/RogueCard";
+import { RogueBonusCalculator } from "./RogueBonusCalculator";
+import { StopHiringAction } from "../../playerActions/StopHiringAction";
 
 export class PlayerActionExecutor extends PlayerActionVisitor {
 
@@ -35,6 +41,14 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         this.result = this.executePutShipIntoHarborAction();
     }
 
+    visitStopDiscoveringAction(action: StopDiscoveringAction): void {
+        this.result = this.executeStopDiscoveringAction();
+    }
+
+    visitStopHiringAction(action: StopHiringAction): void {
+        this.result = this.executeStopHiringAction();
+    }
+
     private executeDrawCardAction(action: DrawCardAction): ResultCode {
         let manager = this.gameStateManager;
 
@@ -51,16 +65,34 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         return ResultCode.Ok;
     }
 
-    private executeDiscardShipAction() {
+    private executeDiscardShipAction(): ResultCode {
         let manager = this.gameStateManager;
         manager.discardDrawnCard();
         manager.continueDiscovering();
         return ResultCode.Ok;
     }
 
-    private executePutShipIntoHarborAction() {
+    private executePutShipIntoHarborAction(): ResultCode {
         let manager = this.gameStateManager;
         this.putDrawnCardIntoHarbor();
+        return ResultCode.Ok;
+    }
+
+    private executeStopDiscoveringAction(): ResultCode {
+        this.startHiring();
+        return ResultCode.Ok;
+    }
+
+    private executeStopHiringAction(): ResultCode {
+        const manager = this.gameStateManager;
+        const gameState = manager.gameState;
+        const nextPlayer = this.nextPlayer(gameState.activePlayer);
+        if (nextPlayer == gameState.turnPlayer) {
+            this.newTurn();
+        } else {
+            manager.changeActivePlayer(nextPlayer);
+            this.startActivePlayerHiring();
+        }
         return ResultCode.Ok;
     }
 
@@ -71,12 +103,52 @@ export class PlayerActionExecutor extends PlayerActionVisitor {
         let sameShipsChecker = new SameShipsInHarborChecker(manager.gameState.harbor.cards);
         if (sameShipsChecker.hasSameShips) {
             manager.discardHarbor();
-            manager.continueDiscovering(); 
-            // @todo initiate end of turn
+            this.startHiring();
         } else {
             manager.continueDiscovering();
         }
-
     }
+
+    private startHiring(): void {
+        this.gameStateManager.startHiring();
+        // @todo calculate turn player hiring bonus
+        this.startActivePlayerHiring();
+    }
+
+    private startActivePlayerHiring(): void {
+        this.calcStartHiringPlayerBonuses();
+        // @todo pass turn if player has no actions
+    }
+
+    private calcStartHiringPlayerBonuses(): void {
+        let manager = this.gameStateManager;
+        const size = manager.gameState.harbor.size();
+        const activePlayer = manager.gameState.activePlayer;
+        if (size >= CaptainCard.THRESHOLD) {
+            const captainBonusCalculator = new CaptainBonusCalculator(activePlayer.persons);
+            manager.addCoins(activePlayer, captainBonusCalculator.income);
+        } else if (size <= RogueCard.THRESHOLD) {
+            const rogueBonusCalculator = new RogueBonusCalculator(activePlayer.persons);
+            manager.addCoins(activePlayer, rogueBonusCalculator.income);
+        }
+    }
+
+    private newTurn() {
+        // @todo detect game end
+        let manager = this.gameStateManager;
+        const gameState = manager.gameState;
+        const nextPlayer = this.nextPlayer(gameState.turnPlayer);
+        manager.changeTurnPlayer(nextPlayer);
+        manager.startDiscovering();
+    }
+
+    private nextPlayer(player: Player): Player {
+        const gameState = this.gameStateManager.gameState;
+        const currentPlayerIdx = gameState.players.indexOf(player);
+        // @todo assert currentPlayerIdx !== -1
+        const nextIdx = (currentPlayerIdx + 1) % gameState.players.length;
+        return gameState.players[nextIdx];
+    }
+
 
 }

@@ -13,6 +13,10 @@ export class Harbor {
         }
     }
 
+    size(): number {
+        return this.cards.length;
+    }
+
     clear(): void {
         this.cards = [];
     }

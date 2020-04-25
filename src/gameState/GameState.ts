@@ -10,6 +10,8 @@ export class GameState {
     drawnCard: Card;
     harbor: Harbor;
     players: Player[];
+
+    turnPlayer: Player;
     activePlayer: Player;
 
     constructor(cardPile: CardPile, players: Player[]) {
@@ -19,5 +21,6 @@ export class GameState {
         this.harbor = new Harbor();
         this.players = players; // @todo validate players number
         this.activePlayer = players[0]; 
+        this.turnPlayer = this.activePlayer;
     }
 }

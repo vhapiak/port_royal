@@ -6,6 +6,7 @@ import { CardDrawnEvent } from "../../gameEvents/CardDrawnEvent";
 import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
 import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
+import { Player } from "../../gameState/Player";
 
 export class GameStateManager {
 
@@ -57,6 +58,35 @@ export class GameStateManager {
         });
         this.gameState.harbor.clear();
         this.events.push(new HarborDiscardedEvent());
+    }
+
+    startHiring(): void {
+        this.gameState.phase = GamePhase.Hiring;
+        this.events.push(new GamePhaseChangedEvent(this.gameState.phase));
+    }
+
+    addCoins(player: Player, income: number): void {
+        for (let i = 0; i < income; ++i) {
+            const coin = this.gameState.cardPile.popCard();
+            // @todo check for null
+            this.gameState.activePlayer.addCoin(coin);
+        }
+        // @todo generate event
+    }
+
+    changeActivePlayer(player: Player): void {
+        this.gameState.activePlayer = player;
+        // @todo generate event
+    }
+
+    changeTurnPlayer(player: Player): void {
+        this.gameState.turnPlayer = player;
+        // @todo generate event
+    }
+
+    startDiscovering(): void {
+        this.gameState.phase = GamePhase.Discovering;
+        this.events.push(new GamePhaseChangedEvent(this.gameState.phase));
     }
 
 } 

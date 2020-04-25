@@ -3,6 +3,8 @@ import { CardVisitor } from '../CardVisitor';
 
 export class RogueCard extends PersonCard {
 
+    static readonly THRESHOLD: number = 0;
+
     income: number = 1;
 
     constructor(id: number, name: string, imagePath: string, points: number, price: number) {
