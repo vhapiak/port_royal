@@ -1,8 +1,6 @@
 import { CardVisitor } from "../../cards/CardVisitor";
 import { Card } from "../../cards/Card";
-import { PiratCard } from "../../cards/persons/PiratCard";
 import { ShipCard } from "../../cards/ShipCard";
-import { ShipColor } from "../../cards/ShipColor";
 
 export class SameShipsInHarborChecker extends CardVisitor {
 
@@ -20,7 +18,7 @@ export class SameShipsInHarborChecker extends CardVisitor {
         }
     }
 
-    visitShip(card: ShipCard): void {
+    visitShipCard(card: ShipCard): void {
         const colorMask = (1 << card.color);
         if (this.presentColorsMask & colorMask) {
             this.hasSameShips = true;

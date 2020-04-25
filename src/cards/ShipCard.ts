@@ -19,7 +19,7 @@ export class ShipCard extends Card {
     }
 
     apply(visitor: CardVisitor): void {
-        visitor.visitShip(this);
+        visitor.visitShipCard(this);
     }
 
 }

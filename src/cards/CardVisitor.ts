@@ -3,25 +3,25 @@ import { TaxCard } from "./TaxCard";
 import { ExpeditionCard } from "./ExpeditionCard";
 import { PersonCard } from "./PersonCard";
 
-import { PiratCard } from "./persons/PiratCard";
+import { PirateCard } from "./persons/PirateCard";
 import { TraderCard } from "./persons/TraderCard";
 import { CrewCard } from "./persons/CrewCard";
-import { MademoiselleCard } from "./persons/MademoiselleCard";
-import { AdmiralCard } from "./persons/AdmiralCard";
+import { CourtesanCard } from "./persons/CourtesanCard";
 import { GovernorCard } from "./persons/GovernorCard";
-import { JesterCard } from "./persons/JesterCard";
+import { CaptainCard } from "./persons/CaptainCard";
+import { RogueCard } from "./persons/RogueCard";
 
 export abstract class CardVisitor {
-    visitShip(card: ShipCard): void { }
-    visitTax(card: TaxCard): void { }
-    visitExpedition(card: ExpeditionCard): void { }
-    visitPerson(card: PersonCard): void { }
+    visitShipCard(card: ShipCard): void { }
+    visitTaxCard(card: TaxCard): void { }
+    visitExpeditionCard(card: ExpeditionCard): void { }
+    visitPersonCard(card: PersonCard): void { }
 
-    visitPirat(card: PiratCard): void { }
-    visitTrader(card: TraderCard): void { }
-    visitCrew(card: CrewCard): void { }
-    visitMademoiselle(card: MademoiselleCard) { }
-    visitAdmiral(card: AdmiralCard) { }
-    visitGovernor(card: GovernorCard) { }
-    visitJester(card: JesterCard) { }
+    visitPirateCard(card: PirateCard): void { }
+    visitTraderCard(card: TraderCard): void { }
+    visitCrewCard(card: CrewCard): void { }
+    visitCourtesanCard(card: CourtesanCard) { }
+    visitGovernorCard(card: GovernorCard) { }
+    visitCaptainCard(card: CaptainCard) { }
+    visitRogueCard(card: RogueCard) { }
 }

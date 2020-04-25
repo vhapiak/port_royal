@@ -1,7 +1,7 @@
 
 export enum CrewAbility {
-    Settler,
-    Captain,
-    Priest,
-    JackOfAllTrades,
+    Carpenter,
+    Sailor,
+    Chaplain,
+    Mercenary,
 }

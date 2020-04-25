@@ -18,7 +18,7 @@ export class TaxCard extends Card {
     }
 
     apply(visitor: CardVisitor): void {
-        visitor.visitTax(this);
+        visitor.visitTaxCard(this);
     }
 
 }

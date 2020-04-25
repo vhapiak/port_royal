@@ -14,7 +14,7 @@ export abstract class PersonCard extends Card {
     }
 
     apply(visitor: CardVisitor): void {
-        visitor.visitPerson(this);
+        visitor.visitPersonCard(this);
     }
 
 }

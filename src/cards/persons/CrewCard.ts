@@ -14,7 +14,7 @@ export class CrewCard extends PersonCard {
 
     apply(visitor: CardVisitor): void {
         super.apply(visitor);
-        visitor.visitCrew(this);
+        visitor.visitCrewCard(this);
     }
 
 }

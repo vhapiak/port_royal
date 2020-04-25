@@ -1,9 +1,9 @@
 import { PersonCard } from '../PersonCard';
 import { CardVisitor } from '../CardVisitor';
 
-export class AdmiralCard extends PersonCard {
+export class CourtesanCard extends PersonCard {
 
-    income: number = 2;
+    discount: number = 1;
 
     constructor(id: number, name: string, imagePath: string, points: number, price: number) {
         super(id, name, imagePath, points, price);
@@ -11,7 +11,7 @@ export class AdmiralCard extends PersonCard {
 
     apply(visitor: CardVisitor): void {
         super.apply(visitor);
-        visitor.visitAdmiral(this);
+        visitor.visitCourtesanCard(this);
     }
 
 }

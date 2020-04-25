@@ -1,6 +1,6 @@
 import { CardVisitor } from "../../cards/CardVisitor";
 import { PersonCard } from "../../cards/PersonCard";
-import { PiratCard } from "../../cards/persons/PiratCard";
+import { PirateCard } from "../../cards/persons/PirateCard";
 
 export class StrengthCalculator extends CardVisitor {
 
@@ -15,7 +15,7 @@ export class StrengthCalculator extends CardVisitor {
         }
     }
 
-    visitPirat(card: PiratCard): void {
+    visitPiratCard(card: PirateCard): void {
         this.strength += card.strength;
     }
 

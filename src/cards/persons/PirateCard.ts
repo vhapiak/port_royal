@@ -1,7 +1,7 @@
 import { PersonCard } from '../PersonCard';
 import { CardVisitor } from '../CardVisitor';
 
-export class PiratCard extends PersonCard {
+export class PirateCard extends PersonCard {
 
     strength: number;
 
@@ -13,7 +13,7 @@ export class PiratCard extends PersonCard {
 
     apply(visitor: CardVisitor): void {
         super.apply(visitor);
-        visitor.visitPirat(this);
+        visitor.visitPirateCard(this);
     }
 
 }

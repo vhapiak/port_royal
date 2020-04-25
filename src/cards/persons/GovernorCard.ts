@@ -3,7 +3,7 @@ import { CardVisitor } from '../CardVisitor';
 
 export class GovernorCard extends PersonCard {
 
-    bonus: number = 1;
+    income: number = 2;
 
     constructor(id: number, name: string, imagePath: string, points: number, price: number) {
         super(id, name, imagePath, points, price);
@@ -11,7 +11,7 @@ export class GovernorCard extends PersonCard {
 
     apply(visitor: CardVisitor): void {
         super.apply(visitor);
-        visitor.visitGovernor(this);
+        visitor.visitGovernorCard(this);
     }
 
 }

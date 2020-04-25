@@ -6,7 +6,7 @@ import { GameModel } from "./GameModel";
 import { Player } from "../gameState/Player";
 import { ShipCard } from "../cards/ShipCard";
 import { ShipColor } from "../cards/ShipColor";
-import { PiratCard } from "../cards/persons/PiratCard";
+import { PirateCard } from "../cards/persons/PirateCard";
 import { TraderCard } from "../cards/persons/TraderCard";
 import { ExpeditionCard } from "../cards/ExpeditionCard";
 import { CrewAbility } from "../cards/CrewAbility";
@@ -27,7 +27,7 @@ export class GameScene extends Phaser.Scene {
             active: true,
         });
 
-        let pirate =  new PiratCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
+        let pirate =  new PirateCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
         let players = [
             new Player('Jack', [], [pirate]),
             new Player('Will', [], []),
@@ -37,10 +37,10 @@ export class GameScene extends Phaser.Scene {
         let cardPile = new CardPile([
             new ShipCard(0, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
             new ShipCard(2, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
-            new PiratCard(3, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new PirateCard(3, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
             new TraderCard(4, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
-            new ExpeditionCard(5, 'Expedition', 'expedition_c2_p4_ss', 2, 4, [CrewAbility.Captain, CrewAbility.Captain]),
-            new PiratCard(6, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new ExpeditionCard(5, 'Expedition', 'expedition_c2_p4_ss', 2, 4, [CrewAbility.Sailor, CrewAbility.Sailor]),
+            new PirateCard(6, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
             new TraderCard(7, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
         ]);
 

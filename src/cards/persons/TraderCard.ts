@@ -15,7 +15,7 @@ export class TraderCard extends PersonCard {
 
     apply(visitor: CardVisitor): void {
         super.apply(visitor);
-        visitor.visitTrader(this);
+        visitor.visitTraderCard(this);
     }
 
 }

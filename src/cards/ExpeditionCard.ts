@@ -17,7 +17,7 @@ export class ExpeditionCard extends Card {
     }
 
     apply(visitor: CardVisitor): void {
-        visitor.visitExpedition(this);
+        visitor.visitExpeditionCard(this);
     }
 
 }
