@@ -13,6 +13,11 @@ import { NumberOfHiresChangedEvent } from "../gameEvents/NumberOfHiresChangedEve
 import { CoinsGivenEvent } from "../gameEvents/CoinsGivenEvent";
 import { ActivePlayerChangedEvent } from "../gameEvents/ActivePlayerChangedEvent";
 import { TurnPlayerChangedEvent } from "../gameEvents/TurnPlayerChangedEvent";
+import { HarborCardDiscardedEvent } from "../gameEvents/HarborCardDiscardedEvent";
+import { CoinsSpentEvent } from "../gameEvents/CoinsSpentEvent";
+import { FeePaidEvent } from "../gameEvents/FeePaidEvent";
+import { PersonCard } from "../cards/PersonCard";
+import { PersonHiredEvent } from "../gameEvents/PersonHiredEvent";
 
 export class GameActionsExecutor {
 
@@ -86,6 +91,34 @@ export class GameActionsExecutor {
     changeTurnPlayer(player: Player) {
         this.gameState.turnPlayer = player;
         this.events.push(new TurnPlayerChangedEvent(player));
+    }
+
+    discardHarborCard(card: Card) {
+        this.gameState.harbor.removeCard(card);
+        this.gameState.cardPile.discardCard(card);
+        this.events.push(new HarborCardDiscardedEvent(card));
+    }
+
+    spendCoins(player: Player, coins: number): void {
+        for (let i = 0; i < coins; ++i) {
+            const coin = player.removeCoin();
+            this.gameState.cardPile.discardCard(coin);
+        }
+        this.events.push(new CoinsSpentEvent(player, coins));
+    }
+
+    payFee(source: Player, target: Player, fee: number): void {
+        for (let i = 0; i < fee; ++i) {
+            const coin = source.removeCoin();
+            target.addCoin(coin);
+        }
+        this.events.push(new FeePaidEvent(source, target, fee));
+    }
+
+    hirePerson(player: Player, person: PersonCard): void {
+        this.gameState.harbor.removeCard(person);
+        player.addPerson(person);
+        this.events.push(new PersonHiredEvent(player, person));
     }
 
     getEvents(): GameEvent[] {

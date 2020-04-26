@@ -1,4 +1,4 @@
-import { GameStateManager } from "./GameStateManager";
+import { GameActionsExecutor } from "../GameActionsExecutor";
 import { CardVisitor } from "../../cards/CardVisitor";
 import { ShipCard } from "../../cards/ShipCard";
 import { PersonCard } from "../../cards/PersonCard";
@@ -8,13 +8,13 @@ import { HireDiscountCalculator } from "./HireDiscountCalculator";
 
 export class HireCardActionExecutor extends CardVisitor {
 
-    manager: GameStateManager;
+    executor: GameActionsExecutor;
     result: ResultCode;
 
-    constructor(manager: GameStateManager) {
+    constructor(executor: GameActionsExecutor) {
         super();
 
-        this.manager = manager;
+        this.executor = executor;
         this.result = ResultCode.WrongCardType;
     }
 
@@ -27,16 +27,16 @@ export class HireCardActionExecutor extends CardVisitor {
     }
 
     private processShip(ship: ShipCard): ResultCode {
-        const gameState = this.manager.gameState;
+        const gameState = this.executor.gameState;
         const activePlayer = gameState.activePlayer;
         const traderBonusCalculator = new TraderBonusCalculator(activePlayer.persons, ship.color);
-        this.manager.addCoins(activePlayer, ship.income + traderBonusCalculator.income);
-        this.manager.discardHarborCard(ship);
+        this.executor.giveCoins(activePlayer, ship.income + traderBonusCalculator.income);
+        this.executor.discardHarborCard(ship);
         return ResultCode.Ok;
     }
 
     private processPerson(person: PersonCard): ResultCode {
-        const gameState = this.manager.gameState;
+        const gameState = this.executor.gameState;
         const activePlayer = gameState.activePlayer;
         const discountCalculator = new HireDiscountCalculator(activePlayer.persons);
         const finalPrice = Math.max(person.price - discountCalculator.discount, 0);
@@ -44,8 +44,8 @@ export class HireCardActionExecutor extends CardVisitor {
             return ResultCode.NotEnoughCoins;
         } 
 
-        this.manager.spendCoins(activePlayer, finalPrice);
-        this.manager.hirePerson(activePlayer, person);
+        this.executor.spendCoins(activePlayer, finalPrice);
+        this.executor.hirePerson(activePlayer, person);
 
         return ResultCode.Ok;
     }

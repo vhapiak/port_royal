@@ -8,4 +8,5 @@ export enum ResultCode {
     NotEnoughCoins,
     ExceedNumberOfHires,
     NotEnoughCards,
+    NoSuchCardInHarbor,
 }
