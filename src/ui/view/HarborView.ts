@@ -5,20 +5,24 @@ import { GameModel } from "../GameModel";
 import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
 import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarborEvent";
 import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
+import { HarborCardView } from "./HarborCardView";
+import { Card } from "../../cards/Card";
+import { HarborCardDiscardedEvent } from "../../gameEvents/HarborCardDiscardedEvent";
+import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 
 export class HarborView extends GameEventVisitor {
 
     scene: Phaser.Scene;
     gameModel: GameModel;
-    cards: Phaser.GameObjects.Image[];
+    cards: HarborCardView[];
 
     constructor(scene: Phaser.Scene, gameModel: GameModel) {
         super();
-        
+
         this.scene = scene;
         this.gameModel = gameModel;
         this.cards = [];
-        
+
         let title = scene.add.text(
             Config.mainLayer.harborLayer.x,
             Config.mainLayer.titleRow.y,
@@ -26,24 +30,40 @@ export class HarborView extends GameEventVisitor {
             Config.titleFont);
         title.setOrigin(0.5, 0.5);
 
+        const harborCards = this.gameModel.gameEngine.state.harbor.cards;
+        for (let i = 0; i < harborCards.length; ++i) {
+            this.addCard(harborCards[i]);
+        }
+
         gameModel.subscribe(this);
-        this.updateState();
     }
 
     visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent) {
-        this.updateState();
+        this.addCard(event.card);
     }
 
     visitHarborDiscardedEvent(event: HarborDiscardedEvent) {
-        this.updateState();
+        this.cards.forEach(card => card.destroy());
+        this.cards = [];
     }
 
-    private updateState(): void {
-        this.cards.forEach((card) => {
-            card.destroy(true);
-        });
-        this.cards = [];
+    visitHarborCardDiscardedEvent(event: HarborCardDiscardedEvent) {
+        this.removeCard(event.card);
+    }
 
+    visitPersonHiredEvent(event: PersonHiredEvent) {
+        this.removeCard(event.person);
+    }
+
+    private removeCard(card: Card) {
+        this.cards.forEach(cardView => {
+            if (cardView.card === card) {
+                cardView.destroy();
+            }
+        });
+    }
+
+    private addCard(card: Card) {
         const harborConfig = Config.mainLayer.harborLayer;
         const cardSize = Config.cardSize;
         const cardWidthWithOffset = cardSize.width + harborConfig.cardsOffset.width;
@@ -51,18 +71,14 @@ export class HarborView extends GameEventVisitor {
         const firstCollumnX = harborConfig.x - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
         const firstCollumnY = Config.mainLayer.verticalLayer.deckRow.y;
 
-        const harborCards = this.gameModel.gameEngine.state.harbor.cards; 
-        for(let i = 0; i < harborCards.length; ++i) {
-            const row = Math.floor(i / harborConfig.cardsInRow);
-            const col = i % harborConfig.cardsInRow;
+        const index = this.cards.length;
+        const row = Math.floor(index / harborConfig.cardsInRow);
+        const col = index % harborConfig.cardsInRow;
 
-            let card = this.scene.add.image(
-                firstCollumnX + col * cardWidthWithOffset, 
-                firstCollumnY + row * cardHeightWithOffset, 
-                harborCards[i].imagePath);
+        const x = firstCollumnX + col * cardWidthWithOffset;
+        const y = firstCollumnY + row * cardHeightWithOffset;
 
-            this.cards.push(card);
-        }
+        this.cards.push(new HarborCardView(x, y, card, this.scene, this.gameModel));
     }
 
 }

@@ -18,6 +18,8 @@ import { StopDrawingButton } from "./view/StopDrawingButton";
 import { DiscardShipButtons } from "./view/DiscardShipButtons";
 import { GamePhase } from "../gameState/GamePhase";
 import { Harbor } from "../gameState/Harbor";
+import { StopHiringButton } from "./view/StopHiringButton";
+import { CourtesanCard } from "../cards/persons/CourtesanCard";
 
 export class GameScene extends Phaser.Scene {
 
@@ -30,9 +32,17 @@ export class GameScene extends Phaser.Scene {
         });
 
         let pirate = new PirateCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
+        let courtesan = new CourtesanCard(13, 'Courtesan', 'shirt', 3, 8);
+        let coins = [
+            new PirateCard(8, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new PirateCard(9, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new PirateCard(10, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new PirateCard(11, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
+            new PirateCard(12, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2)
+        ];
         let players = [
             new Player('Jack', [], [pirate]),
-            new Player('Will', [], []),
+            new Player('Will', coins, [courtesan]),
             new Player('Davy', [], [])
         ];
 
@@ -56,7 +66,7 @@ export class GameScene extends Phaser.Scene {
             0,
             players[0],
             players[0]);
-            
+
         let gameEngine = new GameEngine(gameState);
 
         this.gameModel = new GameModel(gameEngine, gameState.activePlayer);
@@ -83,5 +93,6 @@ export class GameScene extends Phaser.Scene {
         let drawCard = new DrawnCardView(this, this.gameModel);
         let stopDrawing = new StopDrawingButton(this, this.gameModel);
         let discardShip = new DiscardShipButtons(this, this.gameModel);
+        let stopHiring = new StopHiringButton(this, this.gameModel);
     }
 }

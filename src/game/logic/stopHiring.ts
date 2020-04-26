@@ -7,15 +7,16 @@ import { Player } from "../../gameState/Player";
 import { assert } from "../../common/assert";
 
 export function stopHiring(executor: GameActionsExecutor, gameState: GameState): ResultCode {
-    const nextPlayer = calcNextPlayer(gameState, gameState.activePlayer);
-    if (nextPlayer == gameState.turnPlayer) {
+    const nextActivePlayer = calcNextPlayer(gameState, gameState.activePlayer);
+    if (nextActivePlayer == gameState.turnPlayer) {
         // @todo detect game end
-        const nextPlayer = calcNextPlayer(gameState, gameState.turnPlayer);
-        executor.changeTurnPlayer(nextPlayer);
+        const nextTurnPlayer = calcNextPlayer(gameState, gameState.turnPlayer);
+        executor.changeTurnPlayer(nextTurnPlayer);
+        executor.changeActivePlayer(nextTurnPlayer);
         executor.discardHarbor();
         executor.changePhase(GamePhase.Discovering);
     } else {
-        executor.changeActivePlayer(nextPlayer);
+        executor.changeActivePlayer(nextActivePlayer);
         return startActivePlayerHiring(executor, gameState);
     }
     return ResultCode.Ok;

@@ -36,4 +36,8 @@ export class GameModel {
         this.eventDispatcher.subscribe(visitor);
     }
 
+    unsubscribe(visitor: GameEventVisitor): void {
+        this.eventDispatcher.unsubscribe(visitor);
+    }
+
 }
