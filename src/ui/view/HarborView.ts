@@ -3,7 +3,7 @@
 import { Config } from "./ViewConfig";
 import { GameModel } from "../GameModel";
 import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
-import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
+import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarborEvent";
 import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
 
 export class HarborView extends GameEventVisitor {

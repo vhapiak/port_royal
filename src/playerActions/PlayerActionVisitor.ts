@@ -5,11 +5,18 @@ import { PutShipIntoHarborAction } from "./PutShipIntoHarborAction";
 import { StopHiringAction } from "./StopHiringAction";
 import { HireCardAction } from "./HireCardAction";
 
-export class PlayerActionVisitor {
-    visitDrawCardAction(action: DrawCardAction): void {}
-    visitStopDiscoveringAction(action: StopDiscoveringAction): void {}
-    visitDiscardShipAction(action: DiscardShipAction): void {}
-    visitPutShipIntoHarborAction(action: PutShipIntoHarborAction): void {}
-    visitStopHiringAction(action: StopHiringAction): void {}
-    visitHireCardAction(action: HireCardAction): void {}
+export class PlayerActionVisitor<Result> {
+
+    def: Result;
+
+    constructor(def: Result) {
+        this.def = this.def;
+    }
+
+    visitDrawCardAction(action: DrawCardAction): Result { return this.def; }
+    visitStopDiscoveringAction(action: StopDiscoveringAction): Result { return this.def; }
+    visitDiscardShipAction(action: DiscardShipAction): Result { return this.def; }
+    visitPutShipIntoHarborAction(action: PutShipIntoHarborAction): Result { return this.def; }
+    visitStopHiringAction(action: StopHiringAction): Result { return this.def; }
+    visitHireCardAction(action: HireCardAction): Result { return this.def; }
 } 

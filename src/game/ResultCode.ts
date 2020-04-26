@@ -7,4 +7,5 @@ export enum ResultCode {
     WrongCardType,
     NotEnoughCoins,
     ExceedNumberOfHires,
+    NotEnoughCards,
 }

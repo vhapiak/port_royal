@@ -15,7 +15,7 @@ export class StrengthCalculator extends CardVisitor {
         }
     }
 
-    visitPiratCard(card: PirateCard): void {
+    visitPirateCard(card: PirateCard): void {
         this.strength += card.strength;
     }
 

@@ -16,7 +16,7 @@ export class ShipStrengthChecker extends CardVisitor {
         this.isCardDiscardable = false;
     }
 
-    visitShip(card: ShipCard): void {
+    visitShipCard(card: ShipCard): void {
         let strengthCalculator = new StrengthCalculator(this.player.persons);
         this.isCardDiscardable = 
             card.strength !== ShipCard.IMMORTAL_STRENGTH &&

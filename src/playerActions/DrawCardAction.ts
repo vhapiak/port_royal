@@ -3,7 +3,7 @@ import { PlayerActionVisitor } from "./PlayerActionVisitor";
 
 export class DrawCardAction implements PlayerAction {
 
-    apply(visitor: PlayerActionVisitor): void {
-        visitor.visitDrawCardAction(this);
+    apply<Result>(visitor: PlayerActionVisitor<Result>): Result {
+        return visitor.visitDrawCardAction(this);
     }
 }

@@ -3,7 +3,7 @@ import { PlayerActionVisitor } from "./PlayerActionVisitor";
 
 export class StopHiringAction implements PlayerAction {
 
-    apply(visitor: PlayerActionVisitor): void {
-        visitor.visitStopHiringAction(this);
+    apply<Result>(visitor: PlayerActionVisitor<Result>): Result {
+        return visitor.visitStopHiringAction(this);
     }
 }

@@ -20,8 +20,8 @@ export abstract class CardVisitor {
     visitPirateCard(card: PirateCard): void { }
     visitTraderCard(card: TraderCard): void { }
     visitCrewCard(card: CrewCard): void { }
-    visitCourtesanCard(card: CourtesanCard) { }
-    visitGovernorCard(card: GovernorCard) { }
-    visitCaptainCard(card: CaptainCard) { }
-    visitRogueCard(card: RogueCard) { }
+    visitCourtesanCard(card: CourtesanCard): void { }
+    visitGovernorCard(card: GovernorCard): void { }
+    visitCaptainCard(card: CaptainCard): void { }
+    visitRogueCard(card: RogueCard): void { }
 }

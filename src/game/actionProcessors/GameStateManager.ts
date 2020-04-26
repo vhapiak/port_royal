@@ -3,7 +3,7 @@ import { Card } from "../../cards/Card";
 import { GamePhase } from "../../gameState/GamePhase";
 import { GameEvent } from "../../gameEvents/GameEvent";
 import { CardDrawnEvent } from "../../gameEvents/CardDrawnEvent";
-import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarbor";
+import { CardPutIntoHarborEvent } from "../../gameEvents/CardPutIntoHarborEvent";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
 import { HarborDiscardedEvent } from "../../gameEvents/HarborDiscardedEvent";
 import { Player } from "../../gameState/Player";

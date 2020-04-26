@@ -3,7 +3,7 @@ import { PlayerActionVisitor } from "./PlayerActionVisitor";
 
 export class PutShipIntoHarborAction implements PlayerAction {
 
-    apply(visitor: PlayerActionVisitor): void {
-        visitor.visitPutShipIntoHarborAction(this);
+    apply<Result>(visitor: PlayerActionVisitor<Result>): Result {
+        return visitor.visitPutShipIntoHarborAction(this);
     }
 }

@@ -3,9 +3,8 @@ import { PlayerAction } from "../playerActions/PlayerAction";
 import { ResultCode } from "./ResultCode";
 import { ExecutionResult } from "./ExecutionResult";
 import { Player } from "../gameState/Player";
-import { PlayerActionValidator } from "./actionProcessors/PlayerActionValidator";
-import { GameStateManager } from "./actionProcessors/GameStateManager";
-import { PlayerActionExecutor } from "./actionProcessors/PlayerActionExecutor";
+import { PlayerActionsExecutor } from "./PlayerActionsExecutor";
+import { GameActionsExecutor } from "./actionExecutors/GameActionsExecutor";
 
 export class GameEngine {
 
@@ -16,29 +15,25 @@ export class GameEngine {
     }
 
     validateAction(player: Player, action: PlayerAction): ResultCode {
-        return this.validate(player, action);
+        const gameActionsExecutor = new GameActionsExecutor(this.state);
+        const result = this.execute(gameActionsExecutor, player, action);
+        gameActionsExecutor.revert();
+        return result;
     }
 
     executeAction(player: Player, action: PlayerAction): ExecutionResult {
-        let validationResult = this.validate(player, action);
-        if (validationResult != ResultCode.Ok) {
-            return new ExecutionResult(validationResult);
+        const gameActionsExecutor = new GameActionsExecutor(this.state);
+        const result = this.execute(gameActionsExecutor, player, action);
+
+        if (result !== ResultCode.Ok) {
+            gameActionsExecutor.revert();
         }
 
-        let gameStateManager = new GameStateManager(this.state);
-        let executor = new PlayerActionExecutor(gameStateManager, player);
-        action.apply(executor);
-        return new ExecutionResult(executor.result, gameStateManager.events);
+        return new ExecutionResult(result, gameActionsExecutor.getEvents());
     }
 
-    private validate(player: Player, action: PlayerAction): ResultCode {
-        if (player !== this.state.activePlayer) {
-            return ResultCode.NotActivePlayer;
-        }
-
-        let validator = new PlayerActionValidator(this.state, player);
-        action.apply(validator);
-        return validator.result;
+    private execute(executor: GameActionsExecutor, player: Player, action: PlayerAction): ResultCode {
+        const playerActionsExecutor = new PlayerActionsExecutor(executor, this.state, player);
+        return action.apply(playerActionsExecutor);
     }
-
 }

@@ -10,7 +10,7 @@ export class HireCardAction implements PlayerAction {
         this.card = card;
     }
 
-    apply(visitor: PlayerActionVisitor): void {
-        visitor.visitHireCardAction(this);
+    apply<Result>(visitor: PlayerActionVisitor<Result>): Result {
+        return visitor.visitHireCardAction(this);
     }
 }
