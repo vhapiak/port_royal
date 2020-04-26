@@ -4,9 +4,9 @@ export class CardPile {
     drawPile: Card[];
     discardPile: Card[];
 
-    constructor(cards: Card[]) {
-        this.drawPile = [];
-        this.discardPile = cards;
+    constructor(drawPile: Card[], discardPile: Card[]) {
+        this.drawPile = drawPile;
+        this.discardPile = discardPile;
     }
 
     /**
@@ -28,5 +28,9 @@ export class CardPile {
         if (card) {
             this.discardPile.push(card);
         }
+    }
+
+    clone(): CardPile {
+        return new CardPile(this.drawPile.slice(), this.discardPile.slice());
     }
 }

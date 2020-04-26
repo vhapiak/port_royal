@@ -24,4 +24,8 @@ export class Player {
     addPerson(person: PersonCard): void {
         this.persons.push(person);
     }
+
+    clone(): Player {
+        return new Player(this.name, this.coins.slice(), this.persons.slice());
+    }
 }

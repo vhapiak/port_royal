@@ -16,6 +16,8 @@ import { GameEngine } from "../game/GameEngine";
 import { DrawnCardView } from "./view/DrawnCardView";
 import { StopDrawingButton } from "./view/StopDrawingButton";
 import { DiscardShipButtons } from "./view/DiscardShipButtons";
+import { GamePhase } from "../gameState/GamePhase";
+import { Harbor } from "../gameState/Harbor";
 
 export class GameScene extends Phaser.Scene {
 
@@ -27,14 +29,14 @@ export class GameScene extends Phaser.Scene {
             active: true,
         });
 
-        let pirate =  new PirateCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
+        let pirate = new PirateCard(1, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2);
         let players = [
             new Player('Jack', [], [pirate]),
             new Player('Will', [], []),
             new Player('Davy', [], [])
         ];
 
-        let cardPile = new CardPile([
+        let cardPile = new CardPile([], [
             new ShipCard(0, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
             new ShipCard(2, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
             new PirateCard(3, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
@@ -44,7 +46,17 @@ export class GameScene extends Phaser.Scene {
             new TraderCard(7, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
         ]);
 
-        let gameState = new GameState(cardPile, players);
+        let gameState = new GameState(
+            GamePhase.Discovering,
+            cardPile,
+            players,
+            new Harbor([]),
+            null,
+            0,
+            0,
+            players[0],
+            players[0]);
+            
         let gameEngine = new GameEngine(gameState);
 
         this.gameModel = new GameModel(gameEngine, gameState.activePlayer);

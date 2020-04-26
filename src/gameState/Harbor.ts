@@ -3,8 +3,8 @@ import { Card } from "../cards/Card";
 export class Harbor {
     cards: Card[];
 
-    constructor() {
-        this.cards = [];
+    constructor(cards: Card[]) {
+        this.cards = cards;
     }
 
     addCard(card: Card): void {
@@ -26,5 +26,9 @@ export class Harbor {
 
     clear(): void {
         this.cards = [];
+    }
+
+    clone(): Harbor {
+        return new Harbor(this.cards.slice());
     }
 }

@@ -26,7 +26,7 @@ export class GameModel {
         if (results.code !== ResultCode.Ok) {
             return console.error('Invalid action: ', results.code);
         }
-
+        this.currentPlayer = this.gameEngine.state.activePlayer; // only for hot sit game
         results.events.forEach(event => {
             this.eventDispatcher.dispatch(event);
         });

@@ -1,4 +1,4 @@
-import { GameActionsExecutor } from "../actionExecutors/GameActionsExecutor";
+import { GameActionsExecutor } from "../GameActionsExecutor";
 import { GameState } from "../../gameState/GameState";
 import { ResultCode } from "../ResultCode";
 import { CaptainCard } from "../../cards/persons/CaptainCard";

@@ -4,13 +4,17 @@ import { Config } from "./ViewConfig";
 import { GameModel } from "../GameModel";
 import { DrawCardAction } from "../../playerActions/DrawCardAction";
 import { ResultCode } from "../../game/ResultCode";
+import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
+import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
 
-export class DrawPileView {
+export class DrawPileView extends GameEventVisitor {
 
     gameModel: GameModel;
     drawPile: Phaser.GameObjects.Image;
 
     constructor(scene: Phaser.Scene, gameModel: GameModel) {
+        super();
+        
         this.gameModel = gameModel;
 
         let title = scene.add.text(
@@ -27,6 +31,11 @@ export class DrawPileView {
 
         this.drawPile.setInteractive().on('pointerup', DrawPileView.prototype.onClick, this);
 
+        gameModel.subscribe(this);
+        this.updateState();
+    }
+
+    visitGamePhaseChangedEvent(event: GamePhaseChangedEvent) {
         this.updateState();
     }
 

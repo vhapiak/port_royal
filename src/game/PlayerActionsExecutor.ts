@@ -17,7 +17,7 @@ import { ResultCode } from "./ResultCode";
 // import { HireCardActionExecutor } from "./actionProcessors/HireCardActionExecutor";
 // import { DifferentShipsCalculator } from "./actionProcessors/DifferentShipsCalculator";
 // import { HireBonusCalculator } from "./actionProcessors/HireBonusCalculator";
-import { GameActionsExecutor } from "./actionExecutors/GameActionsExecutor";
+import { GameActionsExecutor } from "./GameActionsExecutor";
 import { GameState } from "../gameState/GameState";
 import { GamePhase } from "../gameState/GamePhase";
 import { drawCard } from "./logic/drawCard";
