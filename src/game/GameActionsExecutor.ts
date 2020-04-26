@@ -10,6 +10,9 @@ import { DrawnCardDiscardedEvent } from "../gameEvents/DrawnCardDiscarded";
 import { HarborDiscardedEvent } from "../gameEvents/HarborDiscardedEvent";
 import { PossibleHiresChangedEvent } from "../gameEvents/PossibleHiresChangedEvent";
 import { NumberOfHiresChangedEvent } from "../gameEvents/NumberOfHiresChangedEvent";
+import { CoinsGivenEvent } from "../gameEvents/CoinsGivenEvent";
+import { ActivePlayerChangedEvent } from "../gameEvents/ActivePlayerChangedEvent";
+import { TurnPlayerChangedEvent } from "../gameEvents/TurnPlayerChangedEvent";
 
 export class GameActionsExecutor {
 
@@ -64,15 +67,25 @@ export class GameActionsExecutor {
     }
 
     giveCoins(player: Player, coins: number) {
-        // @todo implement
+        let actualCoins = 0;
+        for (let i = 0; i < coins; ++i) {
+            const coin = this.gameState.cardPile.popCard();
+            if (coin) {
+                actualCoins++;
+                player.addCoin(coin);
+            }
+        }
+        this.events.push(new CoinsGivenEvent(player, actualCoins));
     }
 
     changeActivePlayer(player: Player) {
-        // @todo implement
+        this.gameState.activePlayer = player;
+        this.events.push(new ActivePlayerChangedEvent(player));
     }
 
     changeTurnPlayer(player: Player) {
-        // @todo implement
+        this.gameState.turnPlayer = player;
+        this.events.push(new TurnPlayerChangedEvent(player));
     }
 
     getEvents(): GameEvent[] {
