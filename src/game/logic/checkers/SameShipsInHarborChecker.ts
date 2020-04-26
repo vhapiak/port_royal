@@ -1,6 +1,6 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { Card } from "../../cards/Card";
-import { ShipCard } from "../../cards/ShipCard";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { Card } from "../../../cards/Card";
+import { ShipCard } from "../../../cards/ShipCard";
 
 export class SameShipsInHarborChecker extends CardVisitor {
 

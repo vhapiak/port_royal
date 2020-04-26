@@ -1,6 +1,6 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { PersonCard } from "../../cards/PersonCard";
-import { PirateCard } from "../../cards/persons/PirateCard";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { PersonCard } from "../../../cards/PersonCard";
+import { PirateCard } from "../../../cards/persons/PirateCard";
 
 export class StrengthCalculator extends CardVisitor {
 

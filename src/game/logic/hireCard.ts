@@ -1,7 +1,7 @@
 import { GameActionsExecutor } from "../GameActionsExecutor";
 import { GameState } from "../../gameState/GameState";
 import { ResultCode } from "../ResultCode";
-import { HireBonusCalculator } from "./HireBonusCalculator";
+import { HireBonusCalculator } from "./calculators/HireBonusCalculator";
 import { Card } from "../../cards/Card";
 import { HireCardActionExecutor } from "./HireCardActionExecutor";
 

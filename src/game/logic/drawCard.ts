@@ -1,7 +1,7 @@
 import { GameActionsExecutor } from "../GameActionsExecutor";
 import { GameState } from "../../gameState/GameState";
 import { ResultCode } from "../ResultCode";
-import { ShipStrengthChecker } from "./ShipStrengthChecker";
+import { ShipStrengthChecker } from "./checkers/ShipStrengthChecker";
 import { GamePhase } from "../../gameState/GamePhase";
 import { putDrawnCardIntoHarbor } from "./putCardIntoHarbor";
 

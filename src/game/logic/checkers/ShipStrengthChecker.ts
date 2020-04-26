@@ -1,7 +1,7 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { Player } from "../../gameState/Player";
-import { ShipCard } from "../../cards/ShipCard";
-import { StrengthCalculator } from "./StrengthCalculator";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { Player } from "../../../gameState/Player";
+import { ShipCard } from "../../../cards/ShipCard";
+import { StrengthCalculator } from "../calculators/StrengthCalculator";
 
 export class ShipStrengthChecker extends CardVisitor {
 

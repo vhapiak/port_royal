@@ -1,7 +1,7 @@
 import { GameActionsExecutor } from "../GameActionsExecutor";
 import { GameState } from "../../gameState/GameState";
 import { ResultCode } from "../ResultCode";
-import { SameShipsInHarborChecker } from "./SameShipsInHarborChecker";
+import { SameShipsInHarborChecker } from "./checkers/SameShipsInHarborChecker";
 import { GamePhase } from "../../gameState/GamePhase";
 import { assert } from "../../common/assert";
 import { startHiring } from "./startHiring";

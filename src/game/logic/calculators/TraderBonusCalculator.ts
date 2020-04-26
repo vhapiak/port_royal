@@ -1,7 +1,7 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { PersonCard } from "../../cards/PersonCard";
-import { TraderCard } from "../../cards/persons/TraderCard";
-import { ShipColor } from "../../cards/ShipColor";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { PersonCard } from "../../../cards/PersonCard";
+import { TraderCard } from "../../../cards/persons/TraderCard";
+import { ShipColor } from "../../../cards/ShipColor";
 
 export class TraderBonusCalculator extends CardVisitor {
 

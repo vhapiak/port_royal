@@ -2,8 +2,8 @@ import { GameActionsExecutor } from "../GameActionsExecutor";
 import { GameState } from "../../gameState/GameState";
 import { ResultCode } from "../ResultCode";
 import { CaptainCard } from "../../cards/persons/CaptainCard";
-import { CaptainBonusCalculator } from "./CaptainBonusCalculator";
-import { RogueBonusCalculator } from "./RogueBonusCalculator";
+import { CaptainBonusCalculator } from "./calculators/CaptainBonusCalculator";
+import { RogueBonusCalculator } from "./calculators/RogueBonusCalculator";
 import { RogueCard } from "../../cards/persons/RogueCard";
 
 export function startActivePlayerHiring(executor: GameActionsExecutor, gameState: GameState): ResultCode {

@@ -1,6 +1,6 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { PersonCard } from "../../cards/PersonCard";
-import { CaptainCard } from "../../cards/persons/CaptainCard";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { PersonCard } from "../../../cards/PersonCard";
+import { CaptainCard } from "../../../cards/persons/CaptainCard";
 
 export class CaptainBonusCalculator extends CardVisitor {
 

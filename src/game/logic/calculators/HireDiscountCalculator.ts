@@ -1,6 +1,6 @@
-import { CardVisitor } from "../../cards/CardVisitor";
-import { PersonCard } from "../../cards/PersonCard";
-import { CourtesanCard } from "../../cards/persons/CourtesanCard";
+import { CardVisitor } from "../../../cards/CardVisitor";
+import { PersonCard } from "../../../cards/PersonCard";
+import { CourtesanCard } from "../../../cards/persons/CourtesanCard";
 
 export class HireDiscountCalculator extends CardVisitor {
 

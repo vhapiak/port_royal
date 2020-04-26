@@ -3,8 +3,8 @@ import { CardVisitor } from "../../cards/CardVisitor";
 import { ShipCard } from "../../cards/ShipCard";
 import { PersonCard } from "../../cards/PersonCard";
 import { ResultCode } from "../ResultCode";
-import { TraderBonusCalculator } from "./TraderBonusCalculator";
-import { HireDiscountCalculator } from "./HireDiscountCalculator";
+import { TraderBonusCalculator } from "./calculators/TraderBonusCalculator";
+import { HireDiscountCalculator } from "./calculators/HireDiscountCalculator";
 
 export class HireCardActionExecutor extends CardVisitor {
 
