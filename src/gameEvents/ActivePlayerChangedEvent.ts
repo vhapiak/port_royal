@@ -11,6 +11,6 @@ export class ActivePlayerChangedEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitActivePlayerChangedEvent(this);
     }
 }

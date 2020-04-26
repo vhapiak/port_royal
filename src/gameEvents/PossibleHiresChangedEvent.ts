@@ -10,6 +10,6 @@ export class PossibleHiresChangedEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitPossibleHiresChangedEvent(this);
     }
 }

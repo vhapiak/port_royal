@@ -14,6 +14,6 @@ export class PersonHiredEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitPersonHiredEvent(this);
     }
 }

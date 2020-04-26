@@ -15,6 +15,6 @@ export class FeePaidEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitFeePaidEvent(this);
     }
 }

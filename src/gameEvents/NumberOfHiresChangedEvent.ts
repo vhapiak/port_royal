@@ -10,6 +10,6 @@ export class NumberOfHiresChangedEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitNumberOfHiresChangedEvent(this);
     }
 }

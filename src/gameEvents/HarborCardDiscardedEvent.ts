@@ -11,6 +11,6 @@ export class HarborCardDiscardedEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visitor method
+        visitor.visitHarborCardDiscardedEvent(this);
     }
 }

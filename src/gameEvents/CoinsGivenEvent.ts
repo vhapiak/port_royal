@@ -13,6 +13,6 @@ export class CoinsGivenEvent implements GameEvent {
     }
 
     apply(visitor: GameEventVisitor): void {
-        // @todo call visit method
+        visitor.visitCoinsGivenEvent(this);
     }
 }
