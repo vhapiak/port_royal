@@ -8,6 +8,9 @@ import { ChangePhaseExecutor } from "./ChangePhaseExecutor";
 import { PutDrawnCardIntoHarborExecutor } from "./PutDrawnCardIntoHarborExecutor";
 import { DiscardHarborExecutor } from "./DiscardHarborExecutor";
 import { DiscardDrawnCardExecutor } from "./DiscardDrawnCardExecutor";
+import { ChangePossibleHiresExecutor } from "./ChangePossibleHiresExecutor";
+import { ChangeNumberOfHiresExecutor } from "./ChangeNumberOfHiresExecutor";
+import { Player } from "../../gameState/Player";
 
 export class GameActionsExecutor {
 
@@ -39,6 +42,26 @@ export class GameActionsExecutor {
 
     discardHarbor(): void {
         this.execute(new DiscardHarborExecutor());
+    }
+
+    changePossibleHires(possibleHires: number): void {
+        this.execute(new ChangePossibleHiresExecutor(possibleHires));
+    }
+
+    changeNumberOfHires(numberOfHires: number): void {
+        this.execute(new ChangeNumberOfHiresExecutor(numberOfHires));
+    }
+
+    giveCoins(player: Player, coins: number) {
+        // @todo implement
+    }
+
+    changeActivePlayer(player: Player) {
+        // @todo implement
+    }
+
+    changeTurnPlayer(player: Player) {
+        // @todo implement
     }
 
     revert() {

@@ -25,6 +25,10 @@ import { putDrawnCardIntoHarbor } from "./logic/putCardIntoHarbor";
 import { PutShipIntoHarborAction } from "../playerActions/PutShipIntoHarborAction";
 import { DiscardShipAction } from "../playerActions/DiscardShipAction";
 import { discardDrawnCard } from "./logic/discardDrawnCard";
+import { StopDiscoveringAction } from "../playerActions/StopDiscoveringAction";
+import { startHiring } from "./logic/startHiring";
+import { StopHiringAction } from "../playerActions/StopHiringAction";
+import { stopHiring } from "./logic/stopHiring";
 
 export class PlayerActionsExecutor extends PlayerActionVisitor<ResultCode> {
 
@@ -51,6 +55,17 @@ export class PlayerActionsExecutor extends PlayerActionVisitor<ResultCode> {
         return drawCard(this.executor, this.gameState);
     }
 
+    visitStopDiscoveringAction(action: StopDiscoveringAction): ResultCode {
+        if (this.gameState.phase !== GamePhase.Discovering) {
+            return ResultCode.WrongPhase;
+        }
+        if (this.gameState.activePlayer !== this.sourcePlayer) {
+            return ResultCode.NotActivePlayer;
+        }
+
+        return startHiring(this.executor, this.gameState);
+    }
+
     visitDiscardShipAction(action: DiscardShipAction): ResultCode {
         if (this.gameState.phase !== GamePhase.DiscardingShip) {
             return ResultCode.WrongPhase;
@@ -73,13 +88,16 @@ export class PlayerActionsExecutor extends PlayerActionVisitor<ResultCode> {
         return putDrawnCardIntoHarbor(this.executor, this.gameState);
     }
 
-    // visitStopDiscoveringAction(action: StopDiscoveringAction): ResultCode {
-    //     return this.executeStopDiscoveringAction();
-    // }
+    visitStopHiringAction(action: StopHiringAction): ResultCode {
+        if (this.gameState.phase !== GamePhase.Hiring) {
+            return ResultCode.WrongPhase;
+        }
+        if (this.gameState.activePlayer !== this.sourcePlayer) {
+            return ResultCode.NotActivePlayer;
+        }
 
-    // visitStopHiringAction(action: StopHiringAction): ResultCode {
-    //     return this.executeStopHiringAction();
-    // }
+        return stopHiring(this.executor, this.gameState);
+    }
 
     // visitHireCardAction(action: HireCardAction): ResultCode {
     //     return this.executeHireCardAction(action);

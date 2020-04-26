@@ -4,6 +4,7 @@ import { ResultCode } from "../ResultCode";
 import { SameShipsInHarborChecker } from "./SameShipsInHarborChecker";
 import { GamePhase } from "../../gameState/GamePhase";
 import { assert } from "../../common/assert";
+import { startHiring } from "./startHiring";
 
 export function putDrawnCardIntoHarbor(executor: GameActionsExecutor, gameState: GameState): ResultCode {
     assert(gameState.drawnCard === null);
@@ -12,8 +13,7 @@ export function putDrawnCardIntoHarbor(executor: GameActionsExecutor, gameState:
     let sameShipsChecker = new SameShipsInHarborChecker(gameState.harbor.cards);
     if (sameShipsChecker.hasSameShips) {
         executor.discardHarbor();
-        executor.changePhase(GamePhase.Discovering);
-        // @todo this.startHiring();
+        return startHiring(executor, gameState);
     } else if (gameState.phase !== GamePhase.Discovering) {
         executor.changePhase(GamePhase.Discovering);
     }
