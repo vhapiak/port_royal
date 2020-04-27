@@ -20,6 +20,7 @@ import { GamePhase } from "../gameState/GamePhase";
 import { Harbor } from "../gameState/Harbor";
 import { StopHiringButton } from "./view/StopHiringButton";
 import { CourtesanCard } from "../cards/persons/CourtesanCard";
+import { TopPanelView } from "./view/topPanel/TopPanelView";
 
 export class GameScene extends Phaser.Scene {
 
@@ -74,8 +75,19 @@ export class GameScene extends Phaser.Scene {
 
     preload(): void {
         this.load.image('main_bg', 'data/main_bg.png');
+        this.load.image('top_panel_bg', 'data/top_panel_bg.png');
+        this.load.image('points_mid', 'data/points_mid.png');
+        this.load.image('coin_mid', 'data/coin_mid.png');
+        this.load.image('name_tape', 'data/name_tape.png');
+        this.load.image('player_border', 'data/player_border.png');
         this.load.image('blue_button', 'data/blue_button.png');
         this.load.image('brown_button', 'data/brown_button.png');
+
+        this.load.image('captain_avatar', 'data/avatars/captain.png');
+        this.load.image('courtesan_avatar', 'data/avatars/courtesan.png');
+        this.load.image('gunsmith_avatar', 'data/avatars/gunsmith.png');
+        this.load.image('oldman_avatar', 'data/avatars/oldman.png');
+        this.load.image('pirate_avatar', 'data/avatars/pirate.png');
 
         this.load.image('shirt', 'data/cards/shirt.png');
         this.load.image('expedition_c2_p4_ss', 'data/cards/expedition_c2_p4_ss.png');
@@ -94,5 +106,6 @@ export class GameScene extends Phaser.Scene {
         let stopDrawing = new StopDrawingButton(this, this.gameModel);
         let discardShip = new DiscardShipButtons(this, this.gameModel);
         let stopHiring = new StopHiringButton(this, this.gameModel);
+        let topPanel = new TopPanelView(this, this.gameModel);
     }
 }
