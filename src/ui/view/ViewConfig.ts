@@ -142,8 +142,11 @@ export const Config = {
             }
         },
         team: {
-            y: 278,
-            borderOffset: {
+            y: 280,
+            border: {
+                y: 241
+            },
+            padding: {
                 x: 50
             },
             numbersFont: stateFont, 

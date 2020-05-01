@@ -13,12 +13,14 @@ export class PlayerStateView {
     container: Phaser.GameObjects.Container;
     calculator: Calculator;
     template: string;
+    gameModel: GameModel;
     state: Phaser.GameObjects.Text;
 
     constructor(config: any, calculator: Calculator, scene: Phaser.Scene, gameModel: GameModel) {
         this.boundingBox = new BoundingBox();
         this.container = scene.add.container(0, 0);
         this.calculator = calculator;
+        this.gameModel = gameModel;
         this.template = config.state.template;
 
         if (config.text) {
@@ -60,7 +62,8 @@ export class PlayerStateView {
 
     }
     
-    setPlayer(player: Player): void {
+    setPlayer(index: number): void {
+        const player = this.gameModel.gameEngine.state.players[index];
         const num = this.calculator(player);
         this.state.setText(this.format(num));
         this.container.setAlpha(num === 0 ? 0.2 : 1.0);

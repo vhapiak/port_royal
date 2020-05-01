@@ -83,6 +83,8 @@ export class GameScene extends Phaser.Scene {
         this.load.image('player_border', 'data/player_border.png');
         this.load.image('blue_button', 'data/blue_button.png');
         this.load.image('brown_button', 'data/brown_button.png');
+        this.load.image('small_border', 'data/small_border.png');
+        this.load.image('small_border_corner', 'data/small_border_corner.png');
 
         this.load.image('captain_avatar', 'data/avatars/captain.png');
         this.load.image('courtesan_avatar', 'data/avatars/courtesan.png');

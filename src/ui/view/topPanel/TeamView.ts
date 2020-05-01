@@ -13,13 +13,19 @@ import { RogueBonusCalculator } from "../../../game/logic/calculators/RogueBonus
 import { HireDiscountCalculator } from "../../../game/logic/calculators/HireDiscountCalculator";
 import { ShipType } from "../../../cards/ShipType";
 import { TraderBonusCalculator } from "../../../game/logic/calculators/TraderBonusCalculator";
+import { TeamBorderView } from "./TeamBorderView";
 
 export class TeamView {
+
+    border: TeamBorderView;
+    members: PlayerStateView[];
 
     constructor(scene: Phaser.Scene, gameModel: GameModel) {
         const config = Config.topPanel.team;
 
-        const members = [
+        this.border = new TeamBorderView(scene);
+
+        this.members = [
             new PlayerStateView(config.pirates, strengthCalculator, scene, gameModel),
 
             new PlayerStateView(config.sailor, makeCrewCalculator(CrewAbility.Sailor), scene, gameModel),
@@ -39,19 +45,27 @@ export class TeamView {
             new PlayerStateView(config.flute, makeTraderBonusCalculator(ShipType.Flute), scene, gameModel),
         ];
 
-        const totalWidth = Config.view.width - 2 * config.borderOffset.x;
+        const totalWidth = Config.view.width - 2 * config.padding.x;
         let membersWidth = 0;
-        members.forEach(member => { membersWidth += member.getSize().x; });
+        this.members.forEach(member => { membersWidth += member.getSize().x; });
 
-        const offset = (totalWidth - membersWidth) / (members.length - 1);
+        const offset = (totalWidth - membersWidth) / (this.members.length - 1);
 
-        let x = config.borderOffset.x;
-        for (let i = 0; i < members.length; ++i) {
-            x += members[i].getSize().x / 2;
-            members[i].setPosition(x, config.y);
-            members[i].setPlayer(gameModel.gameEngine.state.activePlayer);
-            x += members[i].getSize().x / 2 + offset;
+        let x = config.padding.x;
+        for (let i = 0; i < this.members.length; ++i) {
+            x += this.members[i].getSize().x / 2;
+            this.members[i].setPosition(x, config.y);
+            x += this.members[i].getSize().x / 2 + offset;
         }
+
+        const gameState = gameModel.gameEngine.state;
+        const index = gameState.players.indexOf(gameState.activePlayer);
+        this.onPlayerSelected(index);
+    }
+
+    onPlayerSelected(index: number): void {
+        this.border.setPlayer(index);
+        this.members.forEach(member => member.setPlayer(index));
     }
 }
 
