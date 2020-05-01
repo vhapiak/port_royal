@@ -68,6 +68,9 @@ export const Config = {
             y: 29
         },
         players: {
+            normalColor: '#000000',
+            activeColor: '#ffd700',
+            turnColor: '#c9c9c9',
             first: {
                 x: 35 + cardSize.width / 2,
                 y: 134
@@ -82,7 +85,7 @@ export const Config = {
                     font: {
                         fontFamily: 'Bookman',
                         fontSize: 28,
-                        color: '#00000{}',
+                        color: '#000000',
                         fontStyle: 'bold italic'
                     }
                 },

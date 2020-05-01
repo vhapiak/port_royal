@@ -9,6 +9,8 @@ import { CoinsGivenEvent } from "../../../gameEvents/CoinsGivenEvent";
 import { CoinsSpentEvent } from "../../../gameEvents/CoinsSpentEvent";
 import { FeePaidEvent } from "../../../gameEvents/FeePaidEvent";
 import { PlayerSelectedListener } from "./PlayerSelectedListener";
+import { ActivePlayerChangedEvent } from "../../../gameEvents/ActivePlayerChangedEvent";
+import { TurnPlayerChangedEvent } from "../../../gameEvents/TurnPlayerChangedEvent";
 
 export class PlayerView extends GameEventVisitor {
 
@@ -17,6 +19,7 @@ export class PlayerView extends GameEventVisitor {
     private listener: PlayerSelectedListener;
     private pointsText: Phaser.GameObjects.Text;
     private coinsText: Phaser.GameObjects.Text;
+    private nameText: Phaser.GameObjects.Text;
 
     constructor(x: number, y: number, playerIdx: number, scene: Phaser.Scene, gameModel: GameModel, listener: PlayerSelectedListener) {
         super();
@@ -60,13 +63,13 @@ export class PlayerView extends GameEventVisitor {
             config.elements.tape.y,
             'name_tape'
         );
-        const nameText = scene.add.text(
+        this.nameText = scene.add.text(
             0, 
             config.elements.name.y,
             gameState.players[playerIdx].name,
             config.elements.name.font
         );
-        nameText.setOrigin(0.5, 0.5);
+        this.nameText.setOrigin(0.5, 0.5);
 
         const avatarConfig = config.elements.avatars[playerIdx];
         const avatar = scene.add.image(
@@ -83,7 +86,7 @@ export class PlayerView extends GameEventVisitor {
             this.coinsText,
             avatar,
             tape,
-            nameText
+            this.nameText
         ]);
 
         const cursor = {cursor: 'pointer'};
@@ -93,6 +96,7 @@ export class PlayerView extends GameEventVisitor {
         gameModel.subscribe(this);
         this.updatePoints();
         this.updateCoins();
+        this.updateActiveState();
     }
 
     visitPersonHiredEvent(event: PersonHiredEvent) {
@@ -111,6 +115,14 @@ export class PlayerView extends GameEventVisitor {
         this.updateCoins();
     }
 
+    visitActivePlayerChangedEvent(event: ActivePlayerChangedEvent) {
+        this.updateActiveState();
+    }
+
+    visitTurnPlayerChangedEvent(event: TurnPlayerChangedEvent) {
+        this.updateActiveState();
+    }
+
     private updateCoins() {
         const player = this.gameModel.gameEngine.state.players[this.playerIdx];
         const coins = player.coins.length;
@@ -121,6 +133,18 @@ export class PlayerView extends GameEventVisitor {
         const player = this.gameModel.gameEngine.state.players[this.playerIdx];
         const pointsCalculator = new PointsCalculator(player);
         this.pointsText.setText('x' + pointsCalculator.points);
+    }
+
+    private updateActiveState() {
+        const gameState = this.gameModel.gameEngine.state;
+        const player = gameState.players[this.playerIdx];
+        if (player === gameState.activePlayer) {
+            this.nameText.setColor(Config.topPanel.players.activeColor);
+        } else if (player === gameState.turnPlayer)  {
+            this.nameText.setColor(Config.topPanel.players.turnColor);
+        } else {
+            this.nameText.setColor(Config.topPanel.players.normalColor);
+        }
     }
 
     private onClick(): void {
