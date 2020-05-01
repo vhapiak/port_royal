@@ -26,7 +26,7 @@ export class Button {
     }
 
     onClick(callback: () => void, context: any): void {
-        this.backgroundImage.setInteractive().on('pointerup', callback, context);
+        this.backgroundImage.setInteractive({cursor: 'pointer'}).on('pointerup', callback, context);
     }
 
 }

@@ -49,8 +49,10 @@ export class DrawPileView extends GameEventVisitor {
     private updateState(): void {
         if (this.isActive()) {
             this.drawPile.setAlpha(1.0);
+            this.drawPile.input.cursor = 'pointer';
         } else {
             this.drawPile.setAlpha(0.5);
+            this.drawPile.input.cursor = 'default';
         }
     }
 

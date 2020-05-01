@@ -64,11 +64,14 @@ export class HarborCardView extends GameEventVisitor {
         if (this.gameModel.gameEngine.state.phase === GamePhase.Hiring) {
             if (this.isActive()) {
                 this.cardImage.setAlpha(1.0);
+                this.cardImage.input.cursor = 'pointer';
             } else {
                 this.cardImage.setAlpha(0.5);
+                this.cardImage.input.cursor = 'default';
             }
         } else {
             this.cardImage.setAlpha(1.0);
+            this.cardImage.input.cursor = 'default';
         }
     }
 
