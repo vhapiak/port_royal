@@ -3,11 +3,12 @@
 import { GameModel } from "../../GameModel"
 import { Player } from "../../../gameState/Player";
 import { BoundingBox } from "../../math/BoundingBox";
+import { GameEventVisitor } from "../../../gameEvents/GameEventVisitor";
+import { PersonHiredEvent } from "../../../gameEvents/PersonHiredEvent";
 
 type Calculator = (player: Player) => number;
 
-export class PlayerStateView {
-
+export class PlayerStateView extends GameEventVisitor {
 
     boundingBox: BoundingBox;
     container: Phaser.GameObjects.Container;
@@ -15,8 +16,11 @@ export class PlayerStateView {
     template: string;
     gameModel: GameModel;
     state: Phaser.GameObjects.Text;
+    playerIdx: number;
 
     constructor(config: any, calculator: Calculator, scene: Phaser.Scene, gameModel: GameModel) {
+        super();
+        
         this.boundingBox = new BoundingBox();
         this.container = scene.add.container(0, 0);
         this.calculator = calculator;
@@ -60,13 +64,12 @@ export class PlayerStateView {
         this.boundingBox.add(state);
         this.state = state;
 
+        gameModel.subscribe(this);
     }
     
     setPlayer(index: number): void {
-        const player = this.gameModel.gameEngine.state.players[index];
-        const num = this.calculator(player);
-        this.state.setText(this.format(num));
-        this.container.setAlpha(num === 0 ? 0.2 : 1.0);
+        this.playerIdx = index;
+        this.update();
     }
 
     setPosition(x: number, y: number): void {
@@ -80,7 +83,20 @@ export class PlayerStateView {
         return new Phaser.Math.Vector2(size.x, size.y);
     }
 
+    visitPersonHiredEvent(event: PersonHiredEvent) {
+        this.update();
+    }
+
+    // @todo visit expedition event
+
     private format(num: number): string {
         return this.template.replace('{}', num + '');
+    }
+
+    private update(): void {
+        const player = this.gameModel.gameEngine.state.players[this.playerIdx];
+        const num = this.calculator(player);
+        this.state.setText(this.format(num));
+        this.container.setAlpha(num === 0 ? 0.2 : 1.0);
     }
 }

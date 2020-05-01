@@ -8,19 +8,22 @@ import { PersonHiredEvent } from "../../../gameEvents/PersonHiredEvent";
 import { CoinsGivenEvent } from "../../../gameEvents/CoinsGivenEvent";
 import { CoinsSpentEvent } from "../../../gameEvents/CoinsSpentEvent";
 import { FeePaidEvent } from "../../../gameEvents/FeePaidEvent";
+import { PlayerSelectedListener } from "./PlayerSelectedListener";
 
 export class PlayerView extends GameEventVisitor {
 
     private playerIdx: number;
     private gameModel: GameModel;
+    private listener: PlayerSelectedListener;
     private pointsText: Phaser.GameObjects.Text;
     private coinsText: Phaser.GameObjects.Text;
 
-    constructor(x: number, y: number, playerIdx: number, scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(x: number, y: number, playerIdx: number, scene: Phaser.Scene, gameModel: GameModel, listener: PlayerSelectedListener) {
         super();
 
         this.playerIdx = playerIdx;
         this.gameModel = gameModel;
+        this.listener = listener;
 
         const config = Config.topPanel.players;
         const border = scene.add.image(0, 0, 'player_border');
@@ -83,6 +86,10 @@ export class PlayerView extends GameEventVisitor {
             nameText
         ]);
 
+        const cursor = {cursor: 'pointer'};
+        avatar.setInteractive(cursor).on('pointerup', PlayerView.prototype.onClick, this);
+        tape.setInteractive(cursor).on('pointerup', PlayerView.prototype.onClick, this);
+
         gameModel.subscribe(this);
         this.updatePoints();
         this.updateCoins();
@@ -114,5 +121,9 @@ export class PlayerView extends GameEventVisitor {
         const player = this.gameModel.gameEngine.state.players[this.playerIdx];
         const pointsCalculator = new PointsCalculator(player);
         this.pointsText.setText('x' + pointsCalculator.points);
+    }
+
+    private onClick(): void {
+        this.listener.onPlayerSelected(this.playerIdx);
     }
 }

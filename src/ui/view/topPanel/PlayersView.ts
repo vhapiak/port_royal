@@ -3,10 +3,11 @@
 import { GameModel } from "../../GameModel";
 import { PlayerView } from "./PlayerView";
 import { Config } from "../ViewConfig";
+import { PlayerSelectedListener } from "./PlayerSelectedListener";
 
 export class PlayersView {
 
-    constructor(scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(scene: Phaser.Scene, gameModel: GameModel, listener: PlayerSelectedListener) {
         const players = gameModel.gameEngine.state.players;
         const config = Config.topPanel.players;
         for (let i = 0; i< players.length; ++i) {
@@ -15,7 +16,8 @@ export class PlayersView {
                 config.first.y,
                 i,
                 scene,
-                gameModel
+                gameModel,
+                listener
             );
         }
     }

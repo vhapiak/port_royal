@@ -10,7 +10,7 @@ export class TopPanelView {
         let background = scene.add.image(0, 0, 'top_panel_bg');
         background.setOrigin(0, 0);
 
-        let players = new PlayersView(scene, gameModel);
         let team = new TeamView(scene, gameModel);
+        let players = new PlayersView(scene, gameModel, team);
     }
 }

@@ -14,13 +14,21 @@ import { HireDiscountCalculator } from "../../../game/logic/calculators/HireDisc
 import { ShipType } from "../../../cards/ShipType";
 import { TraderBonusCalculator } from "../../../game/logic/calculators/TraderBonusCalculator";
 import { TeamBorderView } from "./TeamBorderView";
+import { PlayerSelectedListener } from "./PlayerSelectedListener";
+import { GameEventVisitor } from "../../../gameEvents/GameEventVisitor";
+import { ActivePlayerChangedEvent } from "../../../gameEvents/ActivePlayerChangedEvent";
 
-export class TeamView {
+export class TeamView extends GameEventVisitor implements PlayerSelectedListener {
 
+    gameModel: GameModel;
     border: TeamBorderView;
     members: PlayerStateView[];
 
     constructor(scene: Phaser.Scene, gameModel: GameModel) {
+        super(); 
+
+        this.gameModel = gameModel;
+
         const config = Config.topPanel.team;
 
         this.border = new TeamBorderView(scene);
@@ -61,11 +69,19 @@ export class TeamView {
         const gameState = gameModel.gameEngine.state;
         const index = gameState.players.indexOf(gameState.activePlayer);
         this.onPlayerSelected(index);
+
+        gameModel.subscribe(this);
     }
 
     onPlayerSelected(index: number): void {
         this.border.setPlayer(index);
         this.members.forEach(member => member.setPlayer(index));
+    }
+
+    visitActivePlayerChangedEvent(event: ActivePlayerChangedEvent) {
+        const gameState = this.gameModel.gameEngine.state;
+        const index = gameState.players.indexOf(event.player);
+        this.onPlayerSelected(index);
     }
 }
 
