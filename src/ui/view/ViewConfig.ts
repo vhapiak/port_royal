@@ -4,7 +4,27 @@ const cardSize = {
     height: 328
 };
 
+const view = {
+    width: 1920,
+    height: 1080
+};
+
+const stateFont = {
+    fontFamily: 'Bookman',
+    fontSize: 26,
+    color: '#ffffff',
+    fontStyle: 'bold italic'
+};
+
+const shipNameFont = {
+    fontFamily: 'Bookman',
+    fontSize: 23,
+    color: '#ffffff',
+    fontStyle: 'bold italic'
+};
+
 export const Config = {
+    view: view,
     cardSize: cardSize,
     titleFont: {
         fontFamily: 'Bookman',
@@ -15,7 +35,7 @@ export const Config = {
     buttonFont: {
         fontFamily: 'Bookman',
         fontSize: 27,
-        color: '#000000',
+        color: '#00000{}',
         fontStyle: 'bold italic'
     },
     mainLayer: {
@@ -62,7 +82,7 @@ export const Config = {
                     font: {
                         fontFamily: 'Bookman',
                         fontSize: 28,
-                        color: '#000000',
+                        color: '#00000{}',
                         fontStyle: 'bold italic'
                     }
                 },
@@ -119,6 +139,428 @@ export const Config = {
                         y: -13
                     }
                 ]
+            }
+        },
+        team: {
+            y: 278,
+            borderOffset: {
+                x: 50
+            },
+            numbersFont: stateFont, 
+            pirates: {
+                image: {
+                    texture: 'strength',
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '{}',
+                    font: {
+                        fontFamily: 'Bookman',
+                        fontSize: 33,
+                        color: '#ffffff',
+                        fontStyle: 'bold italic'
+                    },
+                    position: {
+                        x: 2,
+                        y: 2
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 1
+                    }
+                }
+            },
+            sailor: {
+                image: {
+                    texture: 'sailor',
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: 'x{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 32
+                    },
+                    origin: {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            },
+            carpenter: {
+                image: {
+                    texture: 'carpenter',
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: 'x{}',
+                    font: stateFont,
+                    position: {
+                        x: -1,
+                        y: 32
+                    },
+                    origin: {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            },
+            chaplain: {
+                image: {
+                    texture: 'chaplain',
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: 'x{}',
+                    font: stateFont,
+                    position: {
+                        x: -6,
+                        y: 32
+                    },
+                    origin: {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            },
+            mercenary: {
+                image: {
+                    texture: 'mercenary',
+                    position: {
+                        x: 0,
+                        y: 0
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: 'x{}',
+                    font: stateFont,
+                    position: {
+                        x: -6,
+                        y: 32
+                    },
+                    origin: {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            },
+            governor: {
+                image: {
+                    texture: 'governor',
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -8,
+                        y: 32
+                    },
+                    origin: {
+                        x: 1,
+                        y: 1
+                    }
+                }
+            },
+            captain: {
+                image: {
+                    texture: 'captain',
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -10,
+                        y: 32
+                    },
+                    origin: {
+                        x: 1,
+                        y: 1
+                    }
+                }
+            },
+            rogue: {
+                image: {
+                    texture: 'rogue',
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -10,
+                        y: 32
+                    },
+                    origin: {
+                        x: 1,
+                        y: 1
+                    }
+                }
+            },
+            courtesan: {
+                image: {
+                    texture: 'courtesan',
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0
+                    }
+                },
+                state: {
+                    template: 'xN-{}',
+                    font: stateFont,
+                    position: {
+                        x: 0,
+                        y: 32
+                    },
+                    origin: {
+                        x: 0,
+                        y: 1
+                    }
+                }
+            },
+            brig: {
+                image: {
+                    texture: 'coin_small',
+                    position: {
+                        x: 2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 0,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                text: {
+                    value: 'Brig',
+                    font: shipNameFont,
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                }
+            },
+            galleon: {
+                image: {
+                    texture: 'coin_small',
+                    position: {
+                        x: 2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 0,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                text: {
+                    value: 'Galleon',
+                    font: shipNameFont,
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                }
+            },
+            frigate: {
+                image: {
+                    texture: 'coin_small',
+                    position: {
+                        x: 2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 0,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                text: {
+                    value: 'Frigate',
+                    font: shipNameFont,
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                }
+            },
+            pinnace: {
+                image: {
+                    texture: 'coin_small',
+                    position: {
+                        x: 2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 0,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                text: {
+                    value: 'Pinnace',
+                    font: shipNameFont,
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                }
+            },
+            flute: {
+                image: {
+                    texture: 'coin_small',
+                    position: {
+                        x: 2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 0,
+                        y: 0.5
+                    }
+                },
+                state: {
+                    template: '+{}',
+                    font: stateFont,
+                    position: {
+                        x: -2,
+                        y: 14
+                    },
+                    origin: {
+                        x: 1,
+                        y: 0.5
+                    }
+                },
+                text: {
+                    value: 'Flute',
+                    font: shipNameFont,
+                    position: {
+                        x: 0,
+                        y: -30
+                    },
+                    origin: {
+                        x: 0.5,
+                        y: 0
+                    }
+                }
             }
         }
     }

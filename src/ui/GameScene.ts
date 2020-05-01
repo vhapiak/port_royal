@@ -5,7 +5,7 @@ import { HarborView } from "./view/HarborView";
 import { GameModel } from "./GameModel";
 import { Player } from "../gameState/Player";
 import { ShipCard } from "../cards/ShipCard";
-import { ShipColor } from "../cards/ShipColor";
+import { ShipType } from "../cards/ShipType";
 import { PirateCard } from "../cards/persons/PirateCard";
 import { TraderCard } from "../cards/persons/TraderCard";
 import { ExpeditionCard } from "../cards/ExpeditionCard";
@@ -48,13 +48,13 @@ export class GameScene extends Phaser.Scene {
         ];
 
         let cardPile = new CardPile([], [
-            new ShipCard(0, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
-            new ShipCard(2, 'Sloop', 'sloop_c1_s1', ShipColor.Black, 1, 1),
+            new ShipCard(0, 'Sloop', 'sloop_c1_s1', ShipType.Flute, 1, 1),
+            new ShipCard(2, 'Sloop', 'sloop_c1_s1', ShipType.Flute, 1, 1),
             new PirateCard(3, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
-            new TraderCard(4, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
+            new TraderCard(4, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipType.Brig),
             new ExpeditionCard(5, 'Expedition', 'expedition_c2_p4_ss', 2, 4, [CrewAbility.Sailor, CrewAbility.Sailor]),
             new PirateCard(6, 'Pirate', 'pirate_c5_p1_s2', 1, 5, 2),
-            new TraderCard(7, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipColor.Green),
+            new TraderCard(7, 'Trader', 'trader_c3_p1_brig', 1, 3, ShipType.Brig),
         ]);
 
         let gameState = new GameState(
@@ -78,6 +78,7 @@ export class GameScene extends Phaser.Scene {
         this.load.image('top_panel_bg', 'data/top_panel_bg.png');
         this.load.image('points_mid', 'data/points_mid.png');
         this.load.image('coin_mid', 'data/coin_mid.png');
+        this.load.image('coin_small', 'data/coin_small.png');
         this.load.image('name_tape', 'data/name_tape.png');
         this.load.image('player_border', 'data/player_border.png');
         this.load.image('blue_button', 'data/blue_button.png');
@@ -88,6 +89,16 @@ export class GameScene extends Phaser.Scene {
         this.load.image('gunsmith_avatar', 'data/avatars/gunsmith.png');
         this.load.image('oldman_avatar', 'data/avatars/oldman.png');
         this.load.image('pirate_avatar', 'data/avatars/pirate.png');
+
+        this.load.image('strength', 'data/team/strength.png');
+        this.load.image('sailor', 'data/team/sailor.png');
+        this.load.image('carpenter', 'data/team/carpenter.png');
+        this.load.image('chaplain', 'data/team/chaplain.png');
+        this.load.image('mercenary', 'data/team/mercenary.png');
+        this.load.image('governor', 'data/team/governor.png');
+        this.load.image('captain', 'data/team/captain.png');
+        this.load.image('rogue', 'data/team/rogue.png');
+        this.load.image('courtesan', 'data/team/courtesan.png');
 
         this.load.image('shirt', 'data/cards/shirt.png');
         this.load.image('expedition_c2_p4_ss', 'data/cards/expedition_c2_p4_ss.png');

@@ -18,8 +18,8 @@ export class DifferentShipsCalculator extends CardVisitor {
     }
 
     visitShipCard(card: ShipCard): void {
-        const colorMask = (1 << card.color);
-        if ((this.mask & colorMask) === colorMask) {
+        const typeMask = (1 << card.type);
+        if ((this.mask & typeMask) === typeMask) {
             this.number++;
         }
     }

@@ -1,16 +1,16 @@
 import { PersonCard } from '../PersonCard';
 import { CardVisitor } from '../CardVisitor';
-import { ShipColor } from '../ShipColor';
+import { ShipType } from '../ShipType';
 
 export class TraderCard extends PersonCard {
 
-    color: ShipColor;
+    type: ShipType;
     income: number = 1;
 
-    constructor(id: number, name: string, imagePath: string, points: number, price: number, color: ShipColor) {
+    constructor(id: number, name: string, imagePath: string, points: number, price: number, type: ShipType) {
         super(id, name, imagePath, points, price);
 
-        this.color = color;
+        this.type = type;
     }
 
     apply(visitor: CardVisitor): void {

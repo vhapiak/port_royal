@@ -1,19 +1,19 @@
 import { Card } from './Card'
 import { CardVisitor } from './CardVisitor';
-import { ShipColor } from './ShipColor';
+import { ShipType } from './ShipType';
 
 export class ShipCard extends Card {
 
     static readonly IMMORTAL_STRENGTH: number = NaN;
 
-    color: ShipColor;
+    type: ShipType;
     income: number;
     strength: number;
 
-    constructor(id: number, name: string, imagePath: string, color: ShipColor, income: number, strength: number) {
+    constructor(id: number, name: string, imagePath: string, type: ShipType, income: number, strength: number) {
         super(id, name, imagePath);
 
-        this.color = color;
+        this.type = type;
         this.income = income;
         this.strength = strength;
     }

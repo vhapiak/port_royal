@@ -29,7 +29,7 @@ export class HireCardActionExecutor extends CardVisitor {
     private processShip(ship: ShipCard): ResultCode {
         const gameState = this.executor.gameState;
         const activePlayer = gameState.activePlayer;
-        const traderBonusCalculator = new TraderBonusCalculator(activePlayer.persons, ship.color);
+        const traderBonusCalculator = new TraderBonusCalculator(activePlayer.persons, ship.type);
         this.executor.giveCoins(activePlayer, ship.income + traderBonusCalculator.income);
         this.executor.discardHarborCard(ship);
         return ResultCode.Ok;

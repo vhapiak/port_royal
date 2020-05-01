@@ -1,17 +1,17 @@
 import { CardVisitor } from "../../../cards/CardVisitor";
 import { PersonCard } from "../../../cards/PersonCard";
 import { TraderCard } from "../../../cards/persons/TraderCard";
-import { ShipColor } from "../../../cards/ShipColor";
+import { ShipType } from "../../../cards/ShipType";
 
 export class TraderBonusCalculator extends CardVisitor {
 
-    color: ShipColor;
+    type: ShipType;
     income: number;
 
-    constructor(persons: PersonCard[], color: ShipColor) {
+    constructor(persons: PersonCard[], type: ShipType) {
         super();
 
-        this.color = color;
+        this.type = type;
         this.income = 0;
         for (let person of persons) {
             person.apply(this);
@@ -19,7 +19,7 @@ export class TraderBonusCalculator extends CardVisitor {
     }
 
     visitTraderCard(card: TraderCard): void {
-        if (card.color === this.color) {
+        if (card.type === this.type) {
             this.income += card.income;
         }
     }
