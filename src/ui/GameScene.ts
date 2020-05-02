@@ -59,7 +59,14 @@ export class GameScene extends Phaser.Scene {
         this.load.image('courtesan', 'data/team/courtesan.png');
 
         this.load.image('shirt', 'data/cards/shirt.png');
+        this.load.atlas('card_atlas', 'data/cards/en/atlas.png', 'data/cards/en/atlas.json');
         this.load.atlas('card_atlas0', 'data/cards/en/atlas0.png', 'data/cards/en/atlas0.json');
+        this.load.atlas('card_atlas1', 'data/cards/en/atlas1.png', 'data/cards/en/atlas1.json');
+        this.load.atlas('card_atlas2', 'data/cards/en/atlas2.png', 'data/cards/en/atlas2.json');
+        this.load.atlas('card_atlas3', 'data/cards/en/atlas3.png', 'data/cards/en/atlas3.json');
+        this.load.atlas('card_atlas4', 'data/cards/en/atlas4.png', 'data/cards/en/atlas4.json');
+        this.load.atlas('card_atlas5', 'data/cards/en/atlas5.png', 'data/cards/en/atlas5.json');
+        this.load.atlas('card_atlas6', 'data/cards/en/atlas6.png', 'data/cards/en/atlas6.json');
 
         this.load.json('deck', 'data/cards/deck.json');
     }
@@ -82,6 +89,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     private makeGameModel(cards: Card[]): GameModel {
+        console.log('Cards in deck: ', cards.length);
         let players = [
             new Player('Jack', [], []),
             new Player('Will', [], []),
