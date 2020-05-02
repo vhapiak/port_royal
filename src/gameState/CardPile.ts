@@ -1,12 +1,15 @@
 import { Card } from "../cards/Card";
+import { Shuffler } from "../common/Shuffler";
 
 export class CardPile {
     drawPile: Card[];
     discardPile: Card[];
+    shuffer: Shuffler;
 
-    constructor(drawPile: Card[], discardPile: Card[]) {
+    constructor(drawPile: Card[], discardPile: Card[], shuffler: Shuffler) {
         this.drawPile = drawPile;
         this.discardPile = discardPile;
+        this.shuffer = shuffler;
     }
 
     /**
@@ -19,7 +22,7 @@ export class CardPile {
             }
             this.drawPile = this.discardPile;
             this.discardPile = [];
-            // @todo shuffle draw pile
+            this.shuffer.shuffle(this.drawPile);
         }
         return this.drawPile.pop();
     }
@@ -31,6 +34,6 @@ export class CardPile {
     }
 
     clone(): CardPile {
-        return new CardPile(this.drawPile.slice(), this.discardPile.slice());
+        return new CardPile(this.drawPile.slice(), this.discardPile.slice(), this.shuffer);
     }
 }

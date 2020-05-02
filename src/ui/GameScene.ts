@@ -17,6 +17,7 @@ import { CourtesanCard } from "../cards/persons/CourtesanCard";
 import { TopPanelView } from "./view/topPanel/TopPanelView";
 import { CardsProvider } from "./CardsProvider";
 import { Card } from "../cards/Card";
+import { RandomShuffler } from "../common/RandomShuffler";
 
 export class GameScene extends Phaser.Scene {
 
@@ -96,7 +97,7 @@ export class GameScene extends Phaser.Scene {
             new Player('Davy', [], [])
         ];
 
-        let cardPile = new CardPile([], cards);
+        let cardPile = new CardPile([], cards, new RandomShuffler());
 
         let gameState = new GameState(
             GamePhase.Discovering,
