@@ -32,6 +32,26 @@ export class PlayerView extends GameEventVisitor {
         const border = scene.add.image(0, 0, 'player_border');
         const gameState = gameModel.gameEngine.state;
 
+        const tape = scene.add.image(
+            0,
+            config.elements.tape.y,
+            'name_tape'
+        );
+        this.nameText = scene.add.text(
+            0, 
+            config.elements.name.y,
+            gameState.players[playerIdx].name,
+            config.elements.name.font
+        );
+        this.nameText.setOrigin(0.5, 0.5);
+
+        const avatarConfig = config.elements.avatars[playerIdx];
+        const avatar = scene.add.image(
+            avatarConfig.x,
+            avatarConfig.y,
+            avatarConfig.image
+        );
+
         const points = scene.add.image(
             config.elements.stats.icons.x,
             config.elements.stats.points.y,
@@ -57,26 +77,6 @@ export class PlayerView extends GameEventVisitor {
             config.elements.stats.text.font
         );
         this.coinsText.setOrigin(0, 1);
-
-        const tape = scene.add.image(
-            0,
-            config.elements.tape.y,
-            'name_tape'
-        );
-        this.nameText = scene.add.text(
-            0, 
-            config.elements.name.y,
-            gameState.players[playerIdx].name,
-            config.elements.name.font
-        );
-        this.nameText.setOrigin(0.5, 0.5);
-
-        const avatarConfig = config.elements.avatars[playerIdx];
-        const avatar = scene.add.image(
-            avatarConfig.x,
-            avatarConfig.y,
-            avatarConfig.image
-        );
 
         scene.add.container(x, y, [
             border,
