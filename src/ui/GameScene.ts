@@ -18,6 +18,7 @@ import { TopPanelView } from "./view/topPanel/TopPanelView";
 import { CardsProvider } from "./CardsProvider";
 import { Card } from "../cards/Card";
 import { RandomShuffler } from "../common/RandomShuffler";
+import { StartGameAction } from "../playerActions/StartGameAction";
 
 export class GameScene extends Phaser.Scene {
 
@@ -78,6 +79,7 @@ export class GameScene extends Phaser.Scene {
 
         let cardsProvider = new CardsProvider(this);
         this.gameModel = this.makeGameModel(cardsProvider.getCards());
+        this.gameModel.executeAction(new StartGameAction());
 
         let drawPile = new DrawPileView(this, this.gameModel);
         let habor = new HarborView(this, this.gameModel, cardsProvider);
@@ -99,7 +101,7 @@ export class GameScene extends Phaser.Scene {
         let cardPile = new CardPile([], cards, new RandomShuffler());
 
         let gameState = new GameState(
-            GamePhase.Discovering,
+            GamePhase.WaitingStart,
             cardPile,
             players,
             new Harbor([]),

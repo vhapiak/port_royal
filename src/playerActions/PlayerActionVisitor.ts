@@ -4,6 +4,7 @@ import { DiscardShipAction } from "./DiscardShipAction";
 import { PutShipIntoHarborAction } from "./PutShipIntoHarborAction";
 import { StopHiringAction } from "./StopHiringAction";
 import { HireCardAction } from "./HireCardAction";
+import { StartGameAction } from "./StartGameAction";
 
 export class PlayerActionVisitor<Result> {
 
@@ -19,4 +20,5 @@ export class PlayerActionVisitor<Result> {
     visitPutShipIntoHarborAction(action: PutShipIntoHarborAction): Result { return this.def; }
     visitStopHiringAction(action: StopHiringAction): Result { return this.def; }
     visitHireCardAction(action: HireCardAction): Result { return this.def; }
+    visitStartGameAction(action: StartGameAction): Result { return this.def; }
 } 

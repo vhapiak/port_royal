@@ -16,6 +16,8 @@ import { StopHiringAction } from "../playerActions/StopHiringAction";
 import { stopHiring } from "./logic/stopHiring";
 import { HireCardAction } from "../playerActions/HireCardAction";
 import { hireCard } from "./logic/hireCard";
+import { StartGameAction } from "../playerActions/StartGameAction";
+import { startGame } from "./logic/startGame";
 
 export class PlayerActionsExecutor extends PlayerActionVisitor<ResultCode> {
 
@@ -29,6 +31,15 @@ export class PlayerActionsExecutor extends PlayerActionVisitor<ResultCode> {
         this.executor = executor;
         this.gameState = gameState;
         this.sourcePlayer = sourcePlayer;
+    }
+
+    visitStartGameAction(action: StartGameAction): ResultCode {
+        if (this.gameState.phase !== GamePhase.WaitingStart) {
+            return ResultCode.WrongPhase;
+        }
+        // @todo check player
+
+        return startGame(this.executor, this.gameState);
     }
 
     visitDrawCardAction(action: DrawCardAction): ResultCode {
