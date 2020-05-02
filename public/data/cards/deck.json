@@ -24,11 +24,19 @@
         "strength": 2
     },
     {
-        "copy": 1,
+        "copy": 7,
         "name": "Gunsmith",
         "type": "pirate",
         "points": 1,
         "cost": 3,
+        "strength": 1
+    },
+    {
+        "copy": 2,
+        "name": "Gunsmith",
+        "type": "pirate",
+        "points": 2,
+        "cost": 5,
         "strength": 1
     },
     {
@@ -45,6 +53,106 @@
         "type": "captain",
         "points": 1,
         "cost": 5
+    },
+    {
+        "copy": 3,
+        "name": "Captain",
+        "type": "captain",
+        "points": 2,
+        "cost": 7
+    },
+    {
+        "copy": 2,
+        "name": "Captain",
+        "type": "captain",
+        "points": 3,
+        "cost": 9
+    },
+    {
+        "copy": 1,
+        "name": "Rogue",
+        "type": "rogue",
+        "points": 1,
+        "cost": 5
+    },
+    {
+        "copy": 3,
+        "name": "Rogue",
+        "type": "rogue",
+        "points": 2,
+        "cost": 7
+    },
+    {
+        "copy": 1,
+        "name": "Rogue",
+        "type": "rogue",
+        "points": 3,
+        "cost": 9
+    },
+    {
+        "copy": 2,
+        "name": "Courtesan",
+        "type": "courtesan",
+        "points": 2,
+        "cost": 7
+    },
+    {
+        "copy": 2,
+        "name": "Courtesan",
+        "type": "courtesan",
+        "points": 3,
+        "cost": 9
+    },
+    {
+        "copy": 4,
+        "name": "Governor",
+        "type": "governor",
+        "points": 0,
+        "cost": 8
+    },
+    {
+        "copy": 2,
+        "name": "Tax Collector",
+        "type": "tax",
+        "bonus": "strength"
+    },
+    {
+        "copy": 2,
+        "name": "Tax Collector",
+        "type": "tax",
+        "bonus": "points"
+    },
+    {
+        "copy": 5,
+        "name": "Carpenter",
+        "type": "crew",
+        "points": 1,
+        "cost": 4,
+        "ability": "carpenter"
+    },
+    {
+        "copy": 5,
+        "name": "Sailor",
+        "type": "crew",
+        "points": 1,
+        "cost": 4,
+        "ability": "sailor"
+    },
+    {
+        "copy": 5,
+        "name": "Chaplain",
+        "type": "crew",
+        "points": 1,
+        "cost": 4,
+        "ability": "chaplain"
+    },
+    {
+        "copy": 3,
+        "name": "Mercenary",
+        "type": "crew",
+        "points": 1,
+        "cost": 6,
+        "ability": "mercenary"
     },
     {
         "copy": 1,
@@ -69,5 +177,315 @@
         "points": 1,
         "cost": 3,
         "ship": "flute"
+    },
+    {
+        "copy": 1,
+        "name": "Trader Flute",
+        "type": "trader",
+        "points": 2,
+        "cost": 5,
+        "ship": "flute"
+    },
+    {
+        "copy": 2,
+        "name": "Trader Brig",
+        "type": "trader",
+        "points": 1,
+        "cost": 3,
+        "ship": "brig"
+    },
+    {
+        "copy": 2,
+        "name": "Trader Galleon",
+        "type": "trader",
+        "points": 1,
+        "cost": 3,
+        "ship": "galleon"
+    },
+    {
+        "copy": 2,
+        "name": "Trader Frigate",
+        "type": "trader",
+        "points": 1,
+        "cost": 3,
+        "ship": "frigate"
+    },
+
+    {
+        "copy": 3,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 1,
+        "strength": 1,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 1,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 2,
+        "strength": 1,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 2,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 2,
+        "strength": 2,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 1,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 3,
+        "strength": 2,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 2,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 3,
+        "strength": 4,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 1,
+        "name": "Pinnace",
+        "type": "ship",
+        "cost": 4,
+        "strength": 4,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 3,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 1,
+        "strength": 1,
+        "ship": "flute"
+    },
+    {
+        "copy": 1,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 2,
+        "strength": 1,
+        "ship": "flute"
+    },
+    {
+        "copy": 2,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 2,
+        "strength": 2,
+        "ship": "flute"
+    },
+    {
+        "copy": 1,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 3,
+        "strength": 2,
+        "ship": "flute"
+    },
+    {
+        "copy": 2,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 3,
+        "strength": 5,
+        "ship": "flute"
+    },
+    {
+        "copy": 1,
+        "name": "Flute",
+        "type": "ship",
+        "cost": 4,
+        "strength": 5,
+        "ship": "flute"
+    },
+    {
+        "copy": 3,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 1,
+        "strength": 1,
+        "ship": "brig"
+    },
+    {
+        "copy": 1,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 2,
+        "strength": 1,
+        "ship": "brig"
+    },
+    {
+        "copy": 2,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 2,
+        "strength": 3,
+        "ship": "brig"
+    },
+    {
+        "copy": 1,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 3,
+        "strength": 3,
+        "ship": "brig"
+    },
+    {
+        "copy": 2,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 3,
+        "strength": 5,
+        "ship": "brig"
+    },
+    {
+        "copy": 1,
+        "name": "Brig",
+        "type": "ship",
+        "cost": 4,
+        "strength": 5,
+        "ship": "brig"
+    },
+    {
+        "copy": 3,
+        "name": "Galleon",
+        "type": "ship",
+        "cost": 1,
+        "strength": 1,
+        "ship": "galleon"
+    },
+    {
+        "copy": 3,
+        "name": "Galleon",
+        "type": "ship",
+        "cost": 2,
+        "strength": 3,
+        "ship": "galleon"
+    },
+    {
+        "copy": 2,
+        "name": "Galleon",
+        "type": "ship",
+        "cost": 3,
+        "strength": 6,
+        "ship": "galleon"
+    },
+    {
+        "copy": 1,
+        "name": "Galleon",
+        "type": "ship",
+        "cost": 3,
+        "strength": "i",
+        "ship": "galleon"
+    },
+    {
+        "copy": 1,
+        "name": "Galleon",
+        "type": "ship",
+        "cost": 4,
+        "strength": "i",
+        "ship": "galleon"
+    },
+    {
+        "copy": 3,
+        "name": "Frigate",
+        "type": "ship",
+        "cost": 1,
+        "strength": 2,
+        "ship": "frigate"
+    },
+    {
+        "copy": 3,
+        "name": "Frigate",
+        "type": "ship",
+        "cost": 2,
+        "strength": 4,
+        "ship": "frigate"
+    },
+    {
+        "copy": 1,
+        "name": "Frigate",
+        "type": "ship",
+        "cost": 3,
+        "strength": "i",
+        "ship": "frigate"
+    },
+    {
+        "copy": 2,
+        "name": "Frigate",
+        "type": "ship",
+        "cost": 3,
+        "strength": 7,
+        "ship": "frigate"
+    },
+    {
+        "copy": 1,
+        "name": "Frigate",
+        "type": "ship",
+        "cost": 4,
+        "strength": "i",
+        "ship": "frigate"
+    },
+
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 4,
+        "cost": 2,
+        "chaplain": 2  
+    },
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 4,
+        "cost": 2,
+        "carpenter": 2  
+    },
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 4,
+        "cost": 2,
+        "sailor": 2  
+    },
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 6,
+        "cost": 3,
+        "chaplain": 2,
+        "carpenter": 1  
+    },
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 6,
+        "cost": 3,
+        "sailor": 2,
+        "carpenter": 1  
+    },
+    {
+        "copy": 1,
+        "name": "Expedition",
+        "type": "expedition",
+        "points": 5,
+        "cost": 3,
+        "sailor": 1,
+        "chaplain": 1,
+        "carpenter": 1  
     }
 ]
