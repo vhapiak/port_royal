@@ -4,7 +4,9 @@
   "description": "Board card game",
   "main": "Main.js",
   "scripts": {
-    "run": "python -m http.server --directory public/ 8080"
+    "run": "python3 -m http.server --directory public/ 8080",
+    "buildRelease": "tsc -p tsconfig-release.json",
+    "buildDebug": "tsc -p tsconfig-debug.json"
   },
   "author": "Viktor Hapiak",
   "license": "ISC",

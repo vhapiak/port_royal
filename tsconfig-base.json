@@ -2,7 +2,6 @@
     "compilerOptions": {
         "module": "amd",
         "target": "ES6",
-        "outDir": "public/js/",
         "typeRoots": [
             "./node_modules/phaser/types"
         ],
