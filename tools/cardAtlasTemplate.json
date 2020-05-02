@@ -1,0 +1,94 @@
+{
+    "frames": [
+        {
+            "filename": "img1",
+            "frame": {"x":0, "y":0, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img2",
+            "frame": {"x":235, "y":0, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img3",
+            "frame": {"x":470, "y":0, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img4",
+            "frame": {"x":0, "y":328, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img5",
+            "frame": {"x":235, "y":328, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img6",
+            "frame": {"x":470, "y":328, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img7",
+            "frame": {"x":0, "y":656, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img8",
+            "frame": {"x":235, "y":656, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        },
+        {
+            "filename": "img9",
+            "frame": {"x":470, "y":656, "w":235, "h":328},
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": {"x":0, "y":0, "w":235, "h":328},
+            "sourceSize": {"w":235, "h":328},
+            "pivot": {"x":0.5, "y":0.5}
+        }
+    ],
+    "meta": {
+        "app": "makeCardAtlas.sh",
+        "version": "1.0",
+        "image": "atlas.png",
+        "format": "RGBA8888",
+        "size": {"w":705,"h":984},
+        "scale": "1",
+        "smartupdate": "$TexturePacker:SmartUpdate:dd38a603015508376adf694b073b3a9a:d212aa7d5ef3a912a7f699c3795a8933:78287ab19df36dadeb0655d9b198cf32$"
+    }
+}
