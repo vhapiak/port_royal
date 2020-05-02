@@ -5,12 +5,16 @@ import { SameShipsInHarborChecker } from "./checkers/SameShipsInHarborChecker";
 import { GamePhase } from "../../gameState/GamePhase";
 import { assert } from "../../common/assert";
 import { startHiring } from "./startHiring";
+import { HarborEnteringProcessor } from "./HarborEnteringProcessor";
 
 export function putDrawnCardIntoHarbor(executor: GameActionsExecutor, gameState: GameState): ResultCode {
     assert(gameState.drawnCard === null);
-    executor.putDrawnCardIntoHarbor();
+    const card = executor.putDrawnCardIntoHarbor();
 
-    let sameShipsChecker = new SameShipsInHarborChecker(gameState.harbor.cards);
+    const harborEnteringProcessor = new HarborEnteringProcessor(executor, gameState);
+    card.apply(harborEnteringProcessor);
+
+    const sameShipsChecker = new SameShipsInHarborChecker(gameState.harbor.cards);
     if (sameShipsChecker.hasSameShips) {
         executor.discardHarbor();
         return startHiring(executor, gameState);

@@ -8,13 +8,14 @@ export enum BonusType {
 
 export class TaxCard extends Card {
 
-    bonus: BonusType;
+    bonusType: BonusType;
+    bonus: number = 1;
     threshold: number = 12;
 
     constructor(id: number, name: string, bonus: BonusType) {
         super(id, name);
 
-        this.bonus = bonus;
+        this.bonusType = bonus;
     }
 
     apply(visitor: CardVisitor): void {

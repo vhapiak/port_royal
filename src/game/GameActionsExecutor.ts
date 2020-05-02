@@ -41,10 +41,12 @@ export class GameActionsExecutor {
         this.events.push(new GamePhaseChangedEvent(phase));
     }
 
-    putDrawnCardIntoHarbor(): void {
-        this.gameState.harbor.addCard(this.gameState.drawnCard);
-        this.events.push(new CardPutIntoHarborEvent(this.gameState.drawnCard));
+    putDrawnCardIntoHarbor(): Card {
+        const card = this.gameState.drawnCard;
+        this.gameState.harbor.addCard(card);
+        this.events.push(new CardPutIntoHarborEvent(card));
         this.gameState.drawnCard = null;
+        return card;
     }
 
     discardDrawnCard(): void {

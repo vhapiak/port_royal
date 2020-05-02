@@ -86,7 +86,6 @@ export class GameScene extends Phaser.Scene {
         let discardShip = new DiscardShipButtons(this, this.gameModel);
         let stopHiring = new StopHiringButton(this, this.gameModel);
         let topPanel = new TopPanelView(this, this.gameModel);
-
     }
 
     private makeGameModel(cards: Card[]): GameModel {
