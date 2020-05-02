@@ -19,6 +19,7 @@ import { CardsProvider } from "./CardsProvider";
 import { Card } from "../cards/Card";
 import { RandomShuffler } from "../common/RandomShuffler";
 import { StartGameAction } from "../playerActions/StartGameAction";
+import { Config } from "./view/ViewConfig";
 
 export class GameScene extends Phaser.Scene {
 
@@ -32,6 +33,17 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload(): void {
+        let loading = this.add.text(Config.view.width / 2, Config.view.height / 2, 'Loading...', {
+            fontFamily: 'Bookman',
+            fontSize: 56,
+            color: '#ffffff',
+            fontStyle: 'bold italic'
+        });
+        loading.setOrigin(0.5, 0.5);
+        this.load.on('complete', function () {
+            loading.destroy(true);
+        });
+
         this.load.image('main_bg', 'data/main_bg.png');
         this.load.image('top_panel_bg', 'data/top_panel_bg.png');
         this.load.image('points_mid', 'data/points_mid.png');
