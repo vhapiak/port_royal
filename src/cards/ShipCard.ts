@@ -10,8 +10,8 @@ export class ShipCard extends Card {
     income: number;
     strength: number;
 
-    constructor(id: number, name: string, imagePath: string, type: ShipType, income: number, strength: number) {
-        super(id, name, imagePath);
+    constructor(id: number, name: string, type: ShipType, income: number, strength: number) {
+        super(id, name);
 
         this.type = type;
         this.income = income;

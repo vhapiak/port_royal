@@ -6,8 +6,8 @@ export class CrewCard extends PersonCard {
 
     ability: CrewAbility;
 
-    constructor(id: number, name: string, imagePath: string, points: number, price: number, ability: CrewAbility) {
-        super(id, name, imagePath, points, price);
+    constructor(id: number, name: string, points: number, price: number, ability: CrewAbility) {
+        super(id, name, points, price);
 
         this.ability = ability;
     }

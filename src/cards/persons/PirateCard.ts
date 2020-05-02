@@ -5,8 +5,8 @@ export class PirateCard extends PersonCard {
 
     strength: number;
 
-    constructor(id: number, name: string, imagePath: string, points: number, price: number, strength: number) {
-        super(id, name, imagePath, points, price);
+    constructor(id: number, name: string, points: number, price: number, strength: number) {
+        super(id, name, points, price);
 
         this.strength = strength;
     }

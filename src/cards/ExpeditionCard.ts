@@ -8,8 +8,8 @@ export class ExpeditionCard extends Card {
     points: number;
     abilities: CrewAbility[];
 
-    constructor(id: number, name: string, imagePath: string, income: number, points: number, abilities: CrewAbility[]) {
-        super(id, name, imagePath);
+    constructor(id: number, name: string, income: number, points: number, abilities: CrewAbility[]) {
+        super(id, name);
 
         this.income = income;
         this.points = points;

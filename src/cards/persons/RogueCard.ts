@@ -7,8 +7,8 @@ export class RogueCard extends PersonCard {
 
     income: number = 1;
 
-    constructor(id: number, name: string, imagePath: string, points: number, price: number) {
-        super(id, name, imagePath, points, price);
+    constructor(id: number, name: string, points: number, price: number) {
+        super(id, name, points, price);
     }
 
     apply(visitor: CardVisitor): void {

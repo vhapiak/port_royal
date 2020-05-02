@@ -9,19 +9,22 @@ import { HarborCardView } from "./HarborCardView";
 import { Card } from "../../cards/Card";
 import { HarborCardDiscardedEvent } from "../../gameEvents/HarborCardDiscardedEvent";
 import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
+import { CardsProvider } from "../CardsProvider";
 
 export class HarborView extends GameEventVisitor {
 
     scene: Phaser.Scene;
     gameModel: GameModel;
     cards: HarborCardView[];
+    cardsProvider: CardsProvider;
 
-    constructor(scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(scene: Phaser.Scene, gameModel: GameModel, cardsProvider: CardsProvider) {
         super();
 
         this.scene = scene;
         this.gameModel = gameModel;
         this.cards = [];
+        this.cardsProvider = cardsProvider;
 
         let title = scene.add.text(
             Config.mainLayer.harborLayer.x,
@@ -78,7 +81,8 @@ export class HarborView extends GameEventVisitor {
         const x = firstCollumnX + col * cardWidthWithOffset;
         const y = firstCollumnY + row * cardHeightWithOffset;
 
-        this.cards.push(new HarborCardView(x, y, card, this.scene, this.gameModel));
+        const texture = this.cardsProvider.getCardTexture(card.id);
+        this.cards.push(new HarborCardView(x, y, texture, card, this.scene, this.gameModel));
     }
 
 }

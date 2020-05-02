@@ -1,7 +1,6 @@
 /// <reference types="phaser" />
 
 import { GameModel } from "../GameModel";
-import { DrawCardAction } from "../../playerActions/DrawCardAction";
 import { ResultCode } from "../../game/ResultCode";
 import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
@@ -11,6 +10,7 @@ import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 import { CoinsGivenEvent } from "../../gameEvents/CoinsGivenEvent";
 import { HireCardAction } from "../../playerActions/HireCardAction";
 import { GamePhase } from "../../gameState/GamePhase";
+import { CardTexture } from "../CardsProvider";
 
 export class HarborCardView extends GameEventVisitor {
 
@@ -18,13 +18,13 @@ export class HarborCardView extends GameEventVisitor {
     gameModel: GameModel;
     cardImage: Phaser.GameObjects.Image;
 
-    constructor(x: number, y: number, card: Card, scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(x: number, y: number, cardTexture: CardTexture, card: Card, scene: Phaser.Scene, gameModel: GameModel) {
         super();
 
         this.card = card;
         this.gameModel = gameModel;
 
-        this.cardImage = scene.add.image(x, y, card.imagePath);
+        this.cardImage = scene.add.image(x, y, cardTexture.atlas, cardTexture.frame);
 
         this.cardImage.setInteractive().on('pointerup', HarborCardView.prototype.onClick, this);
 

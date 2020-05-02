@@ -1,0 +1,73 @@
+[
+    {
+        "copy": 1,
+        "name": "Pirate",
+        "type": "pirate",
+        "points": 1,
+        "cost": 5,
+        "strength": 2
+    },
+    {
+        "copy": 1,
+        "name": "Pirate",
+        "type": "pirate",
+        "points": 2,
+        "cost": 7,
+        "strength": 2
+    },
+    {
+        "copy": 1,
+        "name": "Pirate",
+        "type": "pirate",
+        "points": 3,
+        "cost": 9,
+        "strength": 2
+    },
+    {
+        "copy": 1,
+        "name": "Gunsmith",
+        "type": "pirate",
+        "points": 1,
+        "cost": 3,
+        "strength": 1
+    },
+    {
+        "copy": 1,
+        "name": "Gunsmith",
+        "type": "pirate",
+        "points": 3,
+        "cost": 7,
+        "strength": 1
+    },
+    {
+        "copy": 1,
+        "name": "Captain",
+        "type": "captain",
+        "points": 1,
+        "cost": 5
+    },
+    {
+        "copy": 1,
+        "name": "Trader Pinnace",
+        "type": "trader",
+        "points": 1,
+        "cost": 3,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 1,
+        "name": "Trader Pinnace",
+        "type": "trader",
+        "points": 2,
+        "cost": 5,
+        "ship": "pinnace"
+    },
+    {
+        "copy": 1,
+        "name": "Trader Flute",
+        "type": "trader",
+        "points": 1,
+        "cost": 3,
+        "ship": "flute"
+    }
+]

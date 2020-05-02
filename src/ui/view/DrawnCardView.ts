@@ -5,16 +5,19 @@ import { GameModel } from "../GameModel";
 import { GameEventVisitor } from "../../gameEvents/GameEventVisitor";
 import { GamePhaseChangedEvent } from "../../gameEvents/GamePhaseChangedEvent";
 import { GamePhase } from "../../gameState/GamePhase";
+import { CardsProvider } from "../CardsProvider";
 
 export class DrawnCardView extends GameEventVisitor {
 
     gameModel: GameModel;
     drawnCard: Phaser.GameObjects.Image;
+    cardsProvider: CardsProvider;
 
-    constructor(scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(scene: Phaser.Scene, gameModel: GameModel, cardsProvider: CardsProvider) {
         super();
         
         this.gameModel = gameModel;
+        this.cardsProvider = cardsProvider;
 
         this.drawnCard = scene.add.image(
             Config.mainLayer.verticalLayer.x,
@@ -32,7 +35,8 @@ export class DrawnCardView extends GameEventVisitor {
     private updateState(): void {
         let state = this.gameModel.gameEngine.state;
         if (state.phase === GamePhase.DiscardingShip) {
-            this.drawnCard.setTexture(state.drawnCard.imagePath);
+            const texture = this.cardsProvider.getCardTexture(state.drawnCard.id);
+            this.drawnCard.setTexture(texture.atlas, texture.frame);
             this.drawnCard.setVisible(true);
         } else {
             this.drawnCard.setVisible(false);
