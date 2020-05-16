@@ -11,12 +11,27 @@ import { HarborCardDiscardedEvent } from "../../gameEvents/HarborCardDiscardedEv
 import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 import { CardsProvider } from "../CardsProvider";
 
+const harborConfig = Config.mainLayer.harborLayer;
+const cardSize = Config.cardSize;
+const cardWidthWithOffset = cardSize.width + harborConfig.cardsOffset.width;
+const cardHeightWithOffset = cardSize.height + harborConfig.cardsOffset.height;
+
+const visibleRows = 2;
+const initialPosition = {
+    x: harborConfig.x,
+    y: Config.mainLayer.verticalLayer.deckRow.y
+};
+
 export class HarborView extends GameEventVisitor {
 
     scene: Phaser.Scene;
     gameModel: GameModel;
     cards: HarborCardView[];
     cardsProvider: CardsProvider;
+
+    container: Phaser.GameObjects.Container;
+    scrollTween: Phaser.Tweens.Tween;
+    scrolledRow: number;
 
     constructor(scene: Phaser.Scene, gameModel: GameModel, cardsProvider: CardsProvider) {
         super();
@@ -25,6 +40,8 @@ export class HarborView extends GameEventVisitor {
         this.gameModel = gameModel;
         this.cards = [];
         this.cardsProvider = cardsProvider;
+        this.scrollTween = null;
+        this.scrolledRow = 0;
 
         let title = scene.add.text(
             Config.mainLayer.harborLayer.x,
@@ -32,6 +49,12 @@ export class HarborView extends GameEventVisitor {
             'Harbor',
             Config.titleFont);
         title.setOrigin(0.5, 0.5);
+
+        this.container = scene.add.container(
+            initialPosition.x,
+            initialPosition.y);
+
+        scene.input.on('wheel', HarborView.prototype.onScroll, this);
 
         const harborCards = this.gameModel.gameEngine.state.harbor.cards;
         for (let i = 0; i < harborCards.length; ++i) {
@@ -66,13 +89,32 @@ export class HarborView extends GameEventVisitor {
         });
     }
 
+    private onScroll(pointer: any, gameObjects: any, deltaX: number, deltaY: number, deltaZ: number) {
+        if (!this.scrollTween) {
+            this.scrollTo(this.scrolledRow - deltaY / Math.abs(deltaY));
+        }
+    }
+
+    private scrollTo(row: number) {
+        if (row > 0 || row < visibleRows - Math.ceil(this.cards.length / harborConfig.cardsInRow)) {
+            return;
+        }
+        this.scrolledRow = row;
+        this.scrollTween = this.scene.add.tween({
+            targets: this.container,
+            y: initialPosition.y + row * cardHeightWithOffset,
+            duration: 100
+        });
+        this.scrollTween.setCallback('onComplete', HarborView.prototype.stopScroll, [], this);
+    }
+
+    private stopScroll() {
+        this.scrollTween = null;
+    }
+
     private addCard(card: Card) {
-        const harborConfig = Config.mainLayer.harborLayer;
-        const cardSize = Config.cardSize;
-        const cardWidthWithOffset = cardSize.width + harborConfig.cardsOffset.width;
-        const cardHeightWithOffset = cardSize.height + harborConfig.cardsOffset.height;
-        const firstCollumnX = harborConfig.x - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
-        const firstCollumnY = Config.mainLayer.verticalLayer.deckRow.y;
+        const firstCollumnX = 0 - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
+        const firstCollumnY = 0;
 
         const index = this.cards.length;
         const row = Math.floor(index / harborConfig.cardsInRow);
@@ -82,7 +124,11 @@ export class HarborView extends GameEventVisitor {
         const y = firstCollumnY + row * cardHeightWithOffset;
 
         const texture = this.cardsProvider.getCardTexture(card.id);
-        this.cards.push(new HarborCardView(x, y, texture, card, this.scene, this.gameModel));
+        const image = this.scene.add.image(x, y, texture.atlas, texture.frame);
+        this.container.add(image);
+        this.cards.push(new HarborCardView(image, card, this.gameModel));
+
+        this.scrollTo(visibleRows - row - 1);
     }
 
 }

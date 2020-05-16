@@ -10,7 +10,6 @@ import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 import { CoinsGivenEvent } from "../../gameEvents/CoinsGivenEvent";
 import { HireCardAction } from "../../playerActions/HireCardAction";
 import { GamePhase } from "../../gameState/GamePhase";
-import { CardTexture } from "../CardsProvider";
 
 export class HarborCardView extends GameEventVisitor {
 
@@ -18,14 +17,13 @@ export class HarborCardView extends GameEventVisitor {
     gameModel: GameModel;
     cardImage: Phaser.GameObjects.Image;
 
-    constructor(x: number, y: number, cardTexture: CardTexture, card: Card, scene: Phaser.Scene, gameModel: GameModel) {
+    constructor(image: Phaser.GameObjects.Image, card: Card, gameModel: GameModel) {
         super();
 
         this.card = card;
         this.gameModel = gameModel;
 
-        this.cardImage = scene.add.image(x, y, cardTexture.atlas, cardTexture.frame);
-
+        this.cardImage = image;
         this.cardImage.setInteractive().on('pointerup', HarborCardView.prototype.onClick, this);
 
         gameModel.subscribe(this);
@@ -50,7 +48,7 @@ export class HarborCardView extends GameEventVisitor {
 
     destroy(): void {
         this.gameModel.unsubscribe(this);
-        this.cardImage.destroy(true);
+        this.cardImage.destroy();
     }
 
     private onClick(): void {
