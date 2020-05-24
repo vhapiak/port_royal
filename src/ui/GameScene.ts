@@ -20,6 +20,7 @@ import { Card } from "../cards/Card";
 import { RandomShuffler } from "../common/RandomShuffler";
 import { StartGameAction } from "../playerActions/StartGameAction";
 import { Config } from "./view/ViewConfig";
+import { PirateCard } from "../cards/persons/PirateCard";
 
 export class GameScene extends Phaser.Scene {
 
@@ -103,9 +104,10 @@ export class GameScene extends Phaser.Scene {
     }
 
     private makeGameModel(cards: Card[]): GameModel {
+        let card = new PirateCard(0, 'Pirate', 1, 1, 10);
         console.log('Cards in deck: ', cards.length);
         let players = [
-            new Player('Jack', [], []),
+            new Player('Jack', [], [card]),
             new Player('Will', [], []),
             new Player('Davy', [], [])
         ];
