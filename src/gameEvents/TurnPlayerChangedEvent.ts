@@ -10,7 +10,7 @@ export class TurnPlayerChangedEvent implements GameEvent {
         this.player = player;
     }
 
-    apply(visitor: GameEventVisitor): void {
-        visitor.visitTurnPlayerChangedEvent(this);
+    apply<Result>(visitor: GameEventVisitor<Result>): Result {
+        return visitor.visitTurnPlayerChangedEvent(this);
     }
 }

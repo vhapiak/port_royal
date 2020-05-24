@@ -3,7 +3,7 @@ import { GameEventVisitor } from "./GameEventVisitor";
 import { Player } from "../gameState/Player";
 
 export class CoinsGivenEvent implements GameEvent {
-    
+
     player: Player
     coins: number;
 
@@ -12,7 +12,7 @@ export class CoinsGivenEvent implements GameEvent {
         this.coins = coins;
     }
 
-    apply(visitor: GameEventVisitor): void {
-        visitor.visitCoinsGivenEvent(this);
+    apply<Result>(visitor: GameEventVisitor<Result>): Result {
+        return visitor.visitCoinsGivenEvent(this);
     }
 }

@@ -13,7 +13,7 @@ export class PersonHiredEvent implements GameEvent {
         this.person = person;
     }
 
-    apply(visitor: GameEventVisitor): void {
-        visitor.visitPersonHiredEvent(this);
+    apply<Result>(visitor: GameEventVisitor<Result>): Result {
+        return visitor.visitPersonHiredEvent(this);
     }
 }

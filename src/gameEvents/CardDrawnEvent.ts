@@ -3,14 +3,14 @@ import { GameEventVisitor } from "./GameEventVisitor";
 import { Card } from "../cards/Card";
 
 export class CardDrawnEvent implements GameEvent {
-    
+
     card: Card;
 
     constructor(card: Card) {
         this.card = card;
     }
 
-    apply(visitor: GameEventVisitor): void {
-        visitor.visitCardDrawnEvent(this);
+    apply<Result>(visitor: GameEventVisitor<Result>): Result {
+        return visitor.visitCardDrawnEvent(this);
     }
 }

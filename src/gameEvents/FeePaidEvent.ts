@@ -3,7 +3,7 @@ import { GameEventVisitor } from "./GameEventVisitor";
 import { Player } from "../gameState/Player";
 
 export class FeePaidEvent implements GameEvent {
-    
+
     source: Player
     target: Player
     fee: number;
@@ -14,7 +14,7 @@ export class FeePaidEvent implements GameEvent {
         this.fee = fee;
     }
 
-    apply(visitor: GameEventVisitor): void {
-        visitor.visitFeePaidEvent(this);
+    apply<Result>(visitor: GameEventVisitor<Result>): Result {
+        return visitor.visitFeePaidEvent(this);
     }
 }

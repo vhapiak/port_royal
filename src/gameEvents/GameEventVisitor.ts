@@ -13,19 +13,26 @@ import { CoinsSpentEvent } from "./CoinsSpentEvent";
 import { CoinsGivenEvent } from "./CoinsGivenEvent";
 import { ActivePlayerChangedEvent } from "./ActivePlayerChangedEvent";
 
-export class GameEventVisitor {
-    visitCardDrawnEvent(event: CardDrawnEvent): void { }
-    visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent): void { }
-    visitGamePhaseChangedEvent(event: GamePhaseChangedEvent) { }
-    visitHarborDiscardedEvent(event: HarborDiscardedEvent) { }
-    visitDrawnCardDiscardedEvent(event: DrawnCardDiscardedEvent) { }
-    visitTurnPlayerChangedEvent(event: TurnPlayerChangedEvent) { }
-    visitPossibleHiresChangedEvent(event: PossibleHiresChangedEvent) { }
-    visitPersonHiredEvent(event: PersonHiredEvent) { }
-    visitNumberOfHiresChangedEvent(event: NumberOfHiresChangedEvent) { }
-    visitHarborCardDiscardedEvent(event: HarborCardDiscardedEvent) { }
-    visitFeePaidEvent(event: FeePaidEvent) { }
-    visitCoinsSpentEvent(event: CoinsSpentEvent) { }
-    visitCoinsGivenEvent(event: CoinsGivenEvent) { }
-    visitActivePlayerChangedEvent(event: ActivePlayerChangedEvent) { }
+export class GameEventVisitor<Result = void> {
+
+    def: Result;
+
+    constructor(def: Result) {
+        this.def = def;
+    }
+
+    visitCardDrawnEvent(event: CardDrawnEvent): Result { return this.def; }
+    visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent): Result { return this.def; }
+    visitGamePhaseChangedEvent(event: GamePhaseChangedEvent): Result { return this.def; }
+    visitHarborDiscardedEvent(event: HarborDiscardedEvent): Result { return this.def; }
+    visitDrawnCardDiscardedEvent(event: DrawnCardDiscardedEvent): Result { return this.def; }
+    visitTurnPlayerChangedEvent(event: TurnPlayerChangedEvent): Result { return this.def; }
+    visitPossibleHiresChangedEvent(event: PossibleHiresChangedEvent): Result { return this.def; }
+    visitPersonHiredEvent(event: PersonHiredEvent): Result { return this.def; }
+    visitNumberOfHiresChangedEvent(event: NumberOfHiresChangedEvent): Result { return this.def; }
+    visitHarborCardDiscardedEvent(event: HarborCardDiscardedEvent): Result { return this.def; }
+    visitFeePaidEvent(event: FeePaidEvent): Result { return this.def; }
+    visitCoinsSpentEvent(event: CoinsSpentEvent): Result { return this.def; }
+    visitCoinsGivenEvent(event: CoinsGivenEvent): Result { return this.def; }
+    visitActivePlayerChangedEvent(event: ActivePlayerChangedEvent): Result { return this.def; }
 }
