@@ -10,6 +10,9 @@ import { Card } from "../../cards/Card";
 import { HarborCardDiscardedEvent } from "../../gameEvents/HarborCardDiscardedEvent";
 import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 import { CardsProvider } from "../CardsProvider";
+import { IAnimatedCardHolder } from "../animations/IAnimatedCardHolder";
+import { assert } from "../../common/assert";
+import { AnimatedCard, FlipSide } from "../animations/AnimatedCard";
 
 const harborConfig = Config.mainLayer.harborLayer;
 const cardSize = Config.cardSize;
@@ -28,18 +31,20 @@ export class HarborView extends GameEventVisitor {
     gameModel: GameModel;
     cards: HarborCardView[];
     cardsProvider: CardsProvider;
+    drawnCardHolder: IAnimatedCardHolder;
 
     container: Phaser.GameObjects.Container;
     scrollTween: Phaser.Tweens.Tween;
     scrolledRow: number;
 
-    constructor(scene: Phaser.Scene, gameModel: GameModel, cardsProvider: CardsProvider) {
+    constructor(scene: Phaser.Scene, gameModel: GameModel, cardsProvider: CardsProvider, drawnCardHolder: IAnimatedCardHolder) {
         super();
 
         this.scene = scene;
         this.gameModel = gameModel;
         this.cards = [];
         this.cardsProvider = cardsProvider;
+        this.drawnCardHolder = drawnCardHolder;
         this.scrollTween = null;
         this.scrolledRow = 0;
 
@@ -56,16 +61,25 @@ export class HarborView extends GameEventVisitor {
 
         scene.input.on('wheel', HarborView.prototype.onScroll, this);
 
-        const harborCards = this.gameModel.gameEngine.state.harbor.cards;
-        for (let i = 0; i < harborCards.length; ++i) {
-            this.addCard(harborCards[i]);
-        }
+        // const harborCards = this.gameModel.gameEngine.state.harbor.cards;
+        // for (let i = 0; i < harborCards.length; ++i) {
+        //     this.addCard(harborCards[i]);
+        // }
 
         gameModel.subscribe(this);
     }
 
     visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent) {
-        this.addCard(event.card);
+        const animatedCard = this.drawnCardHolder.popCard();
+        assert(animatedCard === null);
+
+        animatedCard.card.cancel();
+        animatedCard.card.setPosition(
+            animatedCard.position.x - this.container.x,
+            this.container.y - animatedCard.position.y
+        );
+        this.container.add(animatedCard.card.image);
+        this.addCard(animatedCard.card);
     }
 
     visitHarborDiscardedEvent(event: HarborDiscardedEvent) {
@@ -78,15 +92,15 @@ export class HarborView extends GameEventVisitor {
     }
 
     visitPersonHiredEvent(event: PersonHiredEvent) {
-        this.removeCard(event.person);
+        // this.removeCard(event.person);
     }
 
     private removeCard(card: Card) {
-        this.cards.forEach(cardView => {
-            if (cardView.card === card) {
-                cardView.destroy();
-            }
-        });
+        // this.cards.forEach(cardView => {
+        //     if (cardView.card === card) {
+        //         cardView.destroy();
+        //     }
+        // });
     }
 
     private onScroll(pointer: any, gameObjects: any, deltaX: number, deltaY: number, deltaZ: number) {
@@ -112,7 +126,7 @@ export class HarborView extends GameEventVisitor {
         this.scrollTween = null;
     }
 
-    private addCard(card: Card) {
+    private addCard(card: AnimatedCard) {
         const firstCollumnX = 0 - cardWidthWithOffset * harborConfig.cardsInRow / 2 + cardWidthWithOffset / 2;
         const firstCollumnY = 0;
 
@@ -123,10 +137,12 @@ export class HarborView extends GameEventVisitor {
         const x = firstCollumnX + col * cardWidthWithOffset;
         const y = firstCollumnY + row * cardHeightWithOffset;
 
-        const texture = this.cardsProvider.getCardTexture(card.id);
-        const image = this.scene.add.image(x, y, texture.atlas, texture.frame);
-        this.container.add(image);
-        this.cards.push(new HarborCardView(image, card, this.gameModel));
+        // const texture = this.cardsProvider.getCardTexture(card.id);
+        // const image = this.scene.add.image(x, y, texture.atlas, texture.frame);
+        // this.container.add(image);
+        card.moveWithflip(x, y, FlipSide.FaceUp, 600);
+        // card.flip(FlipSide.FaceUp, 600);
+        this.cards.push(new HarborCardView(card, this.gameModel));
 
         this.scrollTo(visibleRows - row - 1);
     }

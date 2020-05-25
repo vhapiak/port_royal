@@ -10,21 +10,20 @@ import { PersonHiredEvent } from "../../gameEvents/PersonHiredEvent";
 import { CoinsGivenEvent } from "../../gameEvents/CoinsGivenEvent";
 import { HireCardAction } from "../../playerActions/HireCardAction";
 import { GamePhase } from "../../gameState/GamePhase";
+import { AnimatedCard } from "../animations/AnimatedCard";
 
 export class HarborCardView extends GameEventVisitor {
 
-    card: Card;
+    card: AnimatedCard;
     gameModel: GameModel;
-    cardImage: Phaser.GameObjects.Image;
 
-    constructor(image: Phaser.GameObjects.Image, card: Card, gameModel: GameModel) {
+    constructor(card: AnimatedCard, gameModel: GameModel) {
         super();
 
         this.card = card;
         this.gameModel = gameModel;
 
-        this.cardImage = image;
-        this.cardImage.setInteractive().on('pointerup', HarborCardView.prototype.onClick, this);
+        card.image.setInteractive().on('pointerup', HarborCardView.prototype.onClick, this);
 
         gameModel.subscribe(this);
         this.updateState();
@@ -47,34 +46,34 @@ export class HarborCardView extends GameEventVisitor {
     }
 
     destroy(): void {
-        this.gameModel.unsubscribe(this);
-        this.cardImage.destroy();
+        // this.gameModel.unsubscribe(this);
+        // this.cardImage.destroy();
     }
 
     private onClick(): void {
         if (this.isActive()) {
             // @todo wait response
-            this.gameModel.executeAction(new HireCardAction(this.card));
+            this.gameModel.executeAction(new HireCardAction(this.card.card));
         }
     }
 
     private updateState(): void {
         if (this.gameModel.gameEngine.state.phase === GamePhase.Hiring) {
             if (this.isActive()) {
-                this.cardImage.setAlpha(1.0);
-                this.cardImage.input.cursor = 'pointer';
+                this.card.image.setAlpha(1.0);
+                this.card.image.input.cursor = 'pointer';
             } else {
-                this.cardImage.setAlpha(0.5);
-                this.cardImage.input.cursor = 'default';
+                this.card.image.setAlpha(0.5);
+                this.card.image.input.cursor = 'default';
             }
         } else {
-            this.cardImage.setAlpha(1.0);
-            this.cardImage.input.cursor = 'default';
+            this.card.image.setAlpha(1.0);
+            this.card.image.input.cursor = 'default';
         }
     }
 
     private isActive(): boolean {
-        let resultCode = this.gameModel.validateAction(new HireCardAction(this.card));
+        let resultCode = this.gameModel.validateAction(new HireCardAction(this.card.card));
         return resultCode === ResultCode.Ok;
     }
 }

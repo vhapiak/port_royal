@@ -20,8 +20,8 @@ export class EventsDelays extends GameEventVisitor<number> {
         super(0);
     }
 
-    visitCardDrawnEvent(event: CardDrawnEvent): number { return 600; }
-    visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent): number { return 0; }
+    visitCardDrawnEvent(event: CardDrawnEvent): number { return 0; }
+    visitCardPutIntoHarborEvent(event: CardPutIntoHarborEvent): number { return 600; }
     visitGamePhaseChangedEvent(event: GamePhaseChangedEvent): number { return 0; }
     visitHarborDiscardedEvent(event: HarborDiscardedEvent): number { return 0; }
     visitDrawnCardDiscardedEvent(event: DrawnCardDiscardedEvent): number { return 0; }

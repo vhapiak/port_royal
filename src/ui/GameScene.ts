@@ -95,12 +95,13 @@ export class GameScene extends Phaser.Scene {
         this.gameModel.executeAction(new StartGameAction());
 
         let drawPile = new DrawPileView(this, this.gameModel);
-        let habor = new HarborView(this, this.gameModel, cardsProvider);
-        let drawCard = new DrawnCardView(this, this.gameModel, cardsProvider);
         let stopDrawing = new StopDrawingButton(this, this.gameModel);
         let discardShip = new DiscardShipButtons(this, this.gameModel);
         let stopHiring = new StopHiringButton(this, this.gameModel);
         let topPanel = new TopPanelView(this, this.gameModel);
+
+        let drawnCard = new DrawnCardView(this, this.gameModel, cardsProvider);
+        let habor = new HarborView(this, this.gameModel, cardsProvider, drawnCard);
     }
 
     private makeGameModel(cards: Card[]): GameModel {
